@@ -121,7 +121,7 @@ class loginPage extends Component {
 
         const {getFieldDecorator} = this.props.form;
         return (
-            <div className="Login">
+            <div className="Login Modified">
                 <Row type="flex" justify="space-around" align="middle" className="fullHeight">
                     <Col span={7} className="boxShadow">
                         <Spin spinning={this.state.loading} delay={500}>
