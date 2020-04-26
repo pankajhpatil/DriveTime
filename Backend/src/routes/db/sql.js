@@ -3,10 +3,10 @@ var mysql = require('mysql');
 //Put your mysql configuration settings - user, password, database and port
 function getConnection(){
     var connection = mysql.createConnection({
-        host     : 'dropboxmysql.ccrkoda0knep.us-east-2.rds.amazonaws.com',
+        host     : 'authDB.ccrkoda0knep.us-east-2.rds.amazonaws.com',
         user     : 'admin',
         password : 'manunited',
-        database : 'dropboxmysql',
+        database : 'authDB',
         port	 : 3306
     });
     return connection;

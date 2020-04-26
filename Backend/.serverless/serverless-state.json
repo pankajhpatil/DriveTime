@@ -208,7 +208,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1587421611772-2020-04-20T22:26:51.772Z/general-services.zip"
+                "S3Key": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z/general-services.zip"
               },
               "FunctionName": "general-services-dev-api",
               "Handler": "s_api.handler",
@@ -227,14 +227,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "ApiLambdaVersiondw8bpr8EzTQ1NvBJHxISY8zOkV1Y2S7y26AXg6oSE": {
+          "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "3klB8aDA9R8BoJFBmzxSSUYTQXpFHZzGZ+f3aYWMuiI="
+              "CodeSha256": "BNj2Pl9TO1m9u4CIZ8RKPr+msGVQxl8nkKkbqyIqPUc="
             }
           },
           "ApiGatewayRestApi": {
@@ -353,7 +353,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1587421598215": {
+          "ApiGatewayDeployment1587876281014": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -512,7 +512,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1587421611772-2020-04-20T22:26:51.772Z/custom-resources.zip"
+                "S3Key": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z/custom-resources.zip"
               },
               "FunctionName": "general-services-dev-custom-resource-apigw-cw-role",
               "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -568,7 +568,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersiondw8bpr8EzTQ1NvBJHxISY8zOkV1Y2S7y26AXg6oSE"
+              "Ref": "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo"
             }
           },
           "ServiceEndpoint": {
@@ -691,7 +691,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersiondw8bpr8EzTQ1NvBJHxISY8zOkV1Y2S7y26AXg6oSE"
+        "versionLogicalId": "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo"
       }
     },
     "serviceFilename": "serverless.yml",
@@ -705,7 +705,7 @@
     "artifact": "/Users/manish01/Documents/Sem2/282/GroupProject/DriveTime/Backend/.serverless/general-services.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/general-services/dev/1587421611772-2020-04-20T22:26:51.772Z",
+    "artifactDirectoryName": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z",
     "artifact": "general-services.zip"
   }
 }

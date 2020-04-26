@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+var cors = require('cors');
+var cookieParser = require('cookie-parser');
 //api
 const index = require('./routes/index')
 var download = require('./routes/fetch')
@@ -8,8 +10,10 @@ var payment = require('./routes/payment')
 var upload = require('./routes/upload')
 var instructor = require('./routes/instructor')
 var student = require('./routes/Student')
+const mongoose=require('mongoose');
+var session = require('express-session')
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3001;
 const baseUrl = `http://localhost:${port}`;
 
 class InMemoryFriends {
@@ -30,6 +34,32 @@ class InMemoryFriends {
 app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.set('views', 'views');
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+
+//DB config
+const db=require('../src/routes/models/keys').MongoURI;
+
+//connect to Mongo
+mongoose.connect(db,{ useNewUrlParser: true})
+.then(()=>console.log('MongoDb connected!!'))
+.catch(err=>console.log(err));
+
+app.use(cors(
+    {
+        origin: ['http://localhost:3000'],
+        credentials: true,
+    }
+));
+
+app.use(session({
+    secret: 'my_secret_key_dropBox',
+    resave: false,
+    saveUninitialized: true,
+    duration: 30 * 60 * 1000,    //setting the time for active session 10 min
+    activeDuration: 5 * 60 * 1000,
+}))
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
