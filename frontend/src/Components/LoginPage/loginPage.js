@@ -5,7 +5,6 @@ import {
 
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
-import { simpleAction } from '../Actions/simpleAction';
 import { connect } from "react-redux";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
