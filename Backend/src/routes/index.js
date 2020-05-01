@@ -10,6 +10,8 @@ app.get('/testIndexApi', function(req, res){
 });
 
 app.post('/login', function (req, res) {
+    //authDB
+    // authDB
     var sqlQuery = "select * from authDB.user_data d WHERE (`username` = '" + req.body.username + "') and (`password` = '" + req.body.password + "')";
     console.log(sqlQuery);
 
@@ -71,9 +73,8 @@ app.get('/checkLogin', function (req, res) {
     }
 
     else {
-        // res.status(200);
-        // res.send({msg: 'No user logged In'});
-        res.status(200).send({loggedInUser: "admin"});
+        res.status(404);
+        res.send({msg: 'No user logged In'});
     }
 });
 
@@ -117,9 +118,7 @@ app.post('/register', function (req, res, next) {
 
 app.get('/fetchs3data', function (req, res) {
 
-    //for testing okta added this line
-    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid";
-    // var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid WHERE (`username` = '" + req.session.username + "')";
+    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid WHERE (`username` = '" + req.session.username + "')";
 
     if (req.session.username === "admin") {
         sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid";

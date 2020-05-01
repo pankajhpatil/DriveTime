@@ -48,9 +48,8 @@ mongoose.connect(db,{ useNewUrlParser: true})
 
 app.use(cors(
     {
-        origin: ['http://localhost:3000','https://localhost:3000'],
-        methods : ['GET', 'PUT', 'POST','DELETE'],
-        credentials: true
+        origin: ['http://localhost:3000'],
+        credentials: true,
     }
 ));
 

@@ -8,6 +8,7 @@ import Plans from './Plans';
 import InstructorSelection from './InstructorSelection';
 import SummaryComponent from './Summery';
 import { history } from '../../Helper/history';
+import { Button } from 'react-bootstrap';
 import StripeCheckoutButton from 'react-stripe-checkout';
 
 class EnrollmentComponent extends Component{

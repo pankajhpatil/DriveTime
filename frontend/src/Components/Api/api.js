@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { message } from "antd/lib/index";
 
-// const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';
- const api = process.env.SERVER_URL || 'http://localhost:3001';
+const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';
+//  const api = process.env.SERVER_URL || 'http://localhost:3001';
 
 
 axios.defaults.withCredentials = true;
@@ -104,6 +104,12 @@ function getUserTableData() {
 function oAuthlogin(data) {
     let url = api + '/login/OAuth';
     return axios.post(url, data);
+}
+
+function axiosPost(url, data) {
+    return axios.post(url, data)
+        .then(handleSuccess)
+        .catch(handleError);
 }
 
 function axiosGet(url) {
