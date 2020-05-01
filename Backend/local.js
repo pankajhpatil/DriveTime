@@ -1,5 +1,5 @@
 const app = require('./src/server.js');
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 
 // Server
 app.listen(port, () => {
