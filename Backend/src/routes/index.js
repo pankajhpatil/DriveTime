@@ -10,9 +10,10 @@ app.get('/testIndexApi', function(req, res){
 });
 
 app.post('/login', function (req, res) {
-
-    var sqlQuery = "select * from dropboxmysql.user_data d WHERE (`username` = '" + req.body.username + "') and (`password` = '" + req.body.password + "')";
-    // console.log(sqlQuery);
+    //authDB
+    // authDB
+    var sqlQuery = "select * from authDB.user_data d WHERE (`username` = '" + req.body.username + "') and (`password` = '" + req.body.password + "')";
+    console.log(sqlQuery);
 
     mysql.fetchData(function (err, results) {
         if (err) {
@@ -41,7 +42,7 @@ app.post('/login', function (req, res) {
 
 app.get('/getloggedInUserData', function (req, res) {
 
-    var sqlQuery = "select * from dropboxmysql.user_data d WHERE (`username` = '" + req.session.username + "')";
+    var sqlQuery = "select * from authDB.user_data d WHERE (`username` = '" + req.session.username + "')";
 
     mysql.fetchData(function (err, results) {
         if (err) {
@@ -117,10 +118,10 @@ app.post('/register', function (req, res, next) {
 
 app.get('/fetchs3data', function (req, res) {
 
-    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from dropboxmysql.user_files f join dropboxmysql.user_data d on d.user_id=f.userid WHERE (`username` = '" + req.session.username + "')";
+    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid WHERE (`username` = '" + req.session.username + "')";
 
     if (req.session.username === "admin") {
-        sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from dropboxmysql.user_files f join dropboxmysql.user_data d on d.user_id=f.userid";
+        sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid";
     }
 
     mysql.fetchData(function (err, results) {
@@ -139,7 +140,7 @@ app.get('/fetchs3data', function (req, res) {
 
 app.get('/fetchallusers', function (req, res) {
 
-    var sqlQuery = "select * from dropboxmysql.user_data d where d.username <> 'admin'";
+    var sqlQuery = "select * from authDB.user_data d where d.username <> 'admin'";
 
     console.log(sqlQuery);
 
@@ -174,7 +175,7 @@ app.get('/logout', function (req, res) {
 app.post('/login/OAuth', function (req, res) {
 
     //check if user data is available
-    var sqlQuery = "select * from dropboxmysql.user_data d WHERE `username` = '" + req.body.email + "'";
+    var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
 
     mysql.fetchData(function (err, results) {
         if (err) {
@@ -196,7 +197,7 @@ app.post('/login/OAuth', function (req, res) {
                     }
                     else {
                         console.log("Insert Complete");
-                        var sqlQueryAgain = "select * from dropboxmysql.user_data d WHERE (`username` = '" + req.body.username + "')";
+                        var sqlQueryAgain = "select * from authDB.user_data d WHERE (`username` = '" + req.body.username + "')";
                         console.log(sqlQueryAgain);
                     
                         mysql.fetchData(function (err, resultsAgain) {
