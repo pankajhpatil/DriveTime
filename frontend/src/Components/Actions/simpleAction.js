@@ -1,4 +1,3 @@
-import { RESTService } from '../Api/api';
 
 /*
  src/actions/simpleAction.js

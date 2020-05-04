@@ -5,14 +5,7 @@ import {
 
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
-import { simpleAction } from '../Actions/simpleAction';
 import { connect } from "react-redux";
-
-const userTypeOptions = [
-    { value: 'student', label: 'Student' },
-    { value: 'instructor', label: 'Instructor' },
-    { value: 'vendor', label: 'Vehicle Vendor' },
-  ];
 
 class SignUpPage extends Component {
     state = {

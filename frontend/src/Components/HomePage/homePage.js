@@ -26,6 +26,7 @@ import { Typography } from 'antd';
 import AppointmentComponent from '../Appointment/Appointment';
 import SuccessComponent from '../Enroll/Success';
 import ResourcesComponent from '../Resources/Resources';
+import { withOktaAuth } from '@okta/okta-react';
 
 const {Text} = Typography;
 
@@ -46,45 +47,54 @@ class homePage extends Component {
 
     async componentDidMount() {
         // console.log(response.data.loggedInUser.username);
-        let response = await RESTService.checkLogin();
+        this.setState({
+            isAdmin: true,
+            showName: 'Admin',
+        })
+
+        this.setState({
+            isStudent: false,
+            isInstructor : false
+        })
+        //commented for tesing okta
+        // let response = await RESTService.checkLogin();
         
-        if (response.data.loggedInUser.username === "admin") {
+        // if (response.data.loggedInUser.username === "admin") {
 
-            this.setState({
-                isAdmin: true,
-                showName: 'Admin',
-            })
-        }
-        else {
-            this.setState({
-                isAdmin: false,
-                showName: response.data.loggedInUser.firstName + ' ' + response.data.loggedInUser.lastName,
-                // showName: response.data.loggedInUser.username
-            })
-        }
+        //     this.setState({
+        //         isAdmin: true,
+        //         showName: 'Admin',
+        //     })
+        // }
+        // else {
+        //     this.setState({
+        //         isAdmin: false,
+        //         showName: response.data.loggedInUser.firstName + ' ' + response.data.loggedInUser.lastName,
+        //         // showName: response.data.loggedInUser.username
+        //     })
+        // }
 
-        if(response.data.loggedInUser.usertype === "student"){
-            this.setState({
-                isStudent: true,
-                isInstructor : false
-            })
-        }
-        else if(response.data.loggedInUser.usertype === "instructor"){
-            this.setState({
-                isStudent: false,
-                isInstructor : true
-            })
-        }else{
-            this.setState({
-                isStudent: false,
-                isInstructor : false
-            })
-        }
+        // if(response.data.loggedInUser.usertype === "student"){
+        //     this.setState({
+        //         isStudent: true,
+        //         isInstructor : false
+        //     })
+        // }
+        // else if(response.data.loggedInUser.usertype === "instructor"){
+        //     this.setState({
+        //         isStudent: false,
+        //         isInstructor : true
+        //     })
+        // }else{
+        //     this.setState({
+        //         isStudent: false,
+        //         isInstructor : false
+        //     })
+        // }
 
     }
 
     onCollapse = (collapsed) => {
-
         this.setState({collapsed});
     };
 
@@ -112,16 +122,17 @@ class homePage extends Component {
 
     logoutButton = async () => {
 
-        try {
-            await RESTService.logout();
-            message.success('Logged out Successfully');
-        }
-        catch (err) {
-            message.error("User not logged in");
-        }
+        this.props.authService.logout('/');
+        // try {
+        //     await RESTService.logout();
+        //     message.success('Logged out Successfully');
+        // }
+        // catch (err) {
+        //     message.error("User not logged in");
+        // }
 
 
-        history.push('/Login');
+        // history.push('/Login');
 
     };
 
@@ -178,7 +189,7 @@ class homePage extends Component {
         return (
             <div className="HomePage">
                 <Layout style={{minHeight: '100vh'}}>
-                    <Header style={{position: 'fixed', width: '100%', zIndex: 1}} theme='dark'>
+                    <Header style={{marginLeft:'0px',position: 'fixed', width: '100%', zIndex: 1}} theme='dark'>
 
                         <Icon type="dashboard" style={{fontSize: '60px', marginLeft: '17px', color: '#ff872f'}}/>
                         <Button type="primary" icon="right-circle" onClick={this.completeProfile}
@@ -197,7 +208,7 @@ class homePage extends Component {
                             overflow: 'auto',
                             height: '100vh',
                             position: 'fixed',
-                            left: 0,
+                            // left: 0,
                             top: 64
                         }}
                                collapsible
@@ -226,13 +237,13 @@ class homePage extends Component {
                                 <Menu.Item key="2"><span><Icon type="upload"/><span>Documents</span></span></Menu.Item>
                                 }
                                 {(isStudent) &&
-                                <Menu.Item key="4"><span><Icon type="schedule"/><span>Appointments</span></span></Menu.Item>
+                                <Menu.Item key="4"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
                                 {isAdmin &&
-                                <Menu.Item key="4"><span><Icon type="schedule"/><span>All Appointments</span></span></Menu.Item>
+                                <Menu.Item key="4"><span><Icon type="schedule"/><span>All Bookings</span></span></Menu.Item>
                                 }
                                 {(isAdmin) &&
-                                <Menu.Item key="5"><span><Icon type="schedule"/><span>Instructor Appointments</span></span></Menu.Item>
+                                <Menu.Item key="5"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
                             </Menu>
                         </Sider>
@@ -252,6 +263,13 @@ class homePage extends Component {
 
                                 <Router history={history}>
 
+                                    {/* <Route exact path="/"
+                                           render={(props) => <div><Dashboard/>{isStudent && <StudentDashboard/>}
+                                                    {isInstructor && <InstructorDashboard/>}
+                                                    {!isStudent && !isInstructor && <TableComponent/>}
+
+                                           </div>}
+                                    /> */}
                                     <Route exact path="/home"
                                            render={(props) => <div><Dashboard/>{isStudent && <StudentDashboard/>}
                                                     {isInstructor && <InstructorDashboard/>}
@@ -317,5 +335,4 @@ function mapStateToProps(state) {
         simpleReducer
     };
 }
-
-export default connect(mapStateToProps)(homePage);
+export default withOktaAuth(connect(mapStateToProps)(homePage));
