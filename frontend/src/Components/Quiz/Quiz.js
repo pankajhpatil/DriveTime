@@ -26,7 +26,7 @@ class QuizComponent extends Component {
   render() {
      const quiz =  {
       "quizTitle": "Sample Driving Test",
-      "quizSynopsis": "Quiz BichePassing score required at the CA DMV: 83%",
+      "quizSynopsis": "Passing score required at the CA DMV: 83%",
       "questions": [
         {
           "question": "On a two-way roadway with a center lane, drivers from either direction can _________ from the center lane.",
