@@ -27,6 +27,7 @@ import AppointmentComponent from '../Appointment/Appointment';
 import SuccessComponent from '../Enroll/Success';
 import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
+import QuizComponent from "../Quiz/Quiz";
 
 const {Text} = Typography;
 
@@ -48,13 +49,14 @@ class homePage extends Component {
     async componentDidMount() {
         // console.log(response.data.loggedInUser.username);
         this.setState({
-            isAdmin: true,
+            isAdmin: false,
             showName: 'Admin',
         })
 
         this.setState({
-            isStudent: false,
-            isInstructor : false
+            isStudent: true,
+            isInstructor : false,
+            showName: 'Pankaj'
         })
         //commented for tesing okta
         // let response = await RESTService.checkLogin();
@@ -297,6 +299,9 @@ class homePage extends Component {
                                     />
                                     <Route exact path="/home/plan"
                                            render={(props) => <div><Enrollment/></div>}
+                                    />
+                                    <Route exact path="/home/Quiz"
+                                           render={(props) => <div><QuizComponent/></div>}
                                     />
                                     <Route exact path="/home/iSchedule"
                                            render={(props) => <div><ISchedule/></div>}
