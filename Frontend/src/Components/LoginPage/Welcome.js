@@ -4,6 +4,7 @@ import {
 } from 'antd';
 import logo from './../../icon.png';
 import { withOktaAuth } from '@okta/okta-react';
+import LexChat from '../Chatbot/Chatbot'
 
 export default withOktaAuth(
 class WelcomePage extends Component {
@@ -59,9 +60,19 @@ class WelcomePage extends Component {
                                 style={{ position:'relative' , width:'30vh',marginTop:'10px'}}/>
                         <Card className="alignCenter" bordered={false}>
                         <Button type="primary" onClick={this.login}>Login</Button>
+                        <br/>
+                        <a href="/signUp">Register now!</a>
                         </Card>
                     </Col>
                 </Row>
+                <LexChat botName="DriveTime"
+                 IdentityPoolId="us-east-1:77d13f41-a183-49e7-98af-fea9fcd1a67e"
+                 placeholder="Please enter 'book an instructor!'"
+                 style={{position: 'absolute'}}
+                 backgroundColor="#FFFFFF"
+                 height="430px"
+                 region="us-east-1"
+                 headerText="Chat with our drivetime bot" />
             </div>
           );
           return (
