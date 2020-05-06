@@ -32,7 +32,9 @@ export const RESTService = {
     getResources,
     getUserdata,
     rating,
-    payment
+    payment,
+    uploadImage,
+    compareFaces
 };
 
 
@@ -182,5 +184,13 @@ function rating(data){
 }
 function payment(data) {
     let url = api + '/payment/checkout';
+    return axios.post(url, data);
+}
+function uploadImage(data) {
+    let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+    return axios.post(url, data);
+}
+function compareFaces(data) {
+    let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
     return axios.post(url, data);
 }

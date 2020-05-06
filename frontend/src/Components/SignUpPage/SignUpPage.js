@@ -6,13 +6,79 @@ import {
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
 import { connect } from "react-redux";
+import WebCamComponent from "../LoginPage/webCamCapture";
+import Webcam from "react-webcam";
 
 class SignUpPage extends Component {
     state = {
         loading: false,
+        showcam:false,
+        videoConstraints:{}
+    };
+    setRef = webcam => {
+        this.webcam = webcam;
+      };
+
+      async componentDidMount() {
+        
+    }
+
+    capture = async() => {
+        
+        const imageSrc = this.webcam.getScreenshot();
+        fetch(imageSrc)
+        .then(res => res.blob())
+        .then( async(blob) => {
+          const fd = new FormData();
+          const image = new File([blob], Date.now()+".jpeg");
+          fd.append('file', image)
+          this.state.renderWebcam=false;
+          
+         const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+
+         await  fetch(API_URL, {method: 'POST', body: fd}) 
+          .then(res => (console.log(res.json()))) 
+          .then(res => (console.log(res)));
+
+          this.setState({showcam:false});
+          message.success('Photo uploaded successfuly');
+
+        
+        });
+        
+        // const API_URL1 = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
+        //   fetch(API_URL1, {method: 'POST', body: fd}) 
+        //   .then(res => (console.log(res.json()))) 
+        //   .then(res => (console.log(res)))
+        // });
+    
+        
+    
+      //http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces  
+          
+      //    // Let's upload the file
+      //    // Don't set contentType manually → https://github.com/github/fetch/issues/505#issuecomment-293064470
+      //   //  const API_URL = 'https://example.com/add_image'
+      //   //  fetch(API_URL, {method: 'POST', body: fd)
+      //   //  .then(res => res.json()) 
+      //   //  .then(res => console.log(res))
+
+      };
+    
+    showcam = () => {
+        this.setState({showcam:true});
+        let video={}
+        video.width= 400;
+        video.height= 400;
+        video.facingMode= "user";
+        this.setState({videoConstraints:video})
+    };
+    hidecam = () => {
+        this.setState({showcam:false});
+        this.webcam.stopAndCleanup();
     };
 
-
+    
     async componentDidMount() {
 
 
@@ -71,6 +137,32 @@ class SignUpPage extends Component {
 
 
         const {getFieldDecorator} = this.props.form;
+        const cambutton = this.state.showcam ?
+                (<div>
+                <div>
+                <Webcam
+                audio={false}
+                ref={this.setRef}
+                mirrored={true}
+                screenshotFormat="image/jpeg"
+                videoConstraints={this.state.videoConstraints}/>
+                </div>
+                <Row type="flex" justify="space-around" align="middle" className="fullHeight" >
+                <Button type="primary" className="login-form-button" onClick={this.capture} >
+                    Click Picture(Beta)
+                </Button>
+                <Button type="primary" className="login-form-button" onClick={this.hidecam}>
+                    Cancel
+                </Button>
+                </Row>
+                </div>)
+                :
+                (<div>
+                    <Button type="primary"  className="login-form-button" onClick={this.showcam}>
+                        Take Picture
+                    </Button>
+                </div>)
+
         return (
             <div className="Login">
                 <Row type="flex" justify="space-around" align="middle" className="fullHeight">
@@ -147,13 +239,16 @@ class SignUpPage extends Component {
                                     )}
                                 
                                 </Form.Item>
-
+                                <Form.Item className="alignCenter" style={{marginBottom: 0, marginTop: 5}}>
+                                    {cambutton}
+                                </Form.Item>
 
                                 <Form.Item className="alignCenter" style={{marginBottom: 0, marginTop: 5}}>
-                                    <Button type="primary" htmlType="submit" className="login-form-button">
-                                        Register
-                                    </Button>
+                                <Button type="primary" htmlType="submit" className="login-form-button">
+                                    Register
+                                </Button>
                                 </Form.Item>
+                                
 
                                 <Form.Item className="alignCenter" style={{lineHeight: 0}}>
                                     or <a href="/login">Sign In</a>
@@ -161,6 +256,7 @@ class SignUpPage extends Component {
                             </Form>
                         </Spin>
                     </Col>
+                
                 </Row>
             </div>
         );
