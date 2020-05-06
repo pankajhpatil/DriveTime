@@ -27,7 +27,9 @@ import AppointmentComponent from '../Appointment/Appointment';
 import SuccessComponent from '../Enroll/Success';
 import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
+import QuizComponent from "../Quiz/Quiz";
 import IFeedback from '../Instructor/iFeedback';
+
 
 const {Text} = Typography;
 
@@ -318,6 +320,9 @@ class homePage extends Component {
                                     />
                                     <Route exact path="/home/plan"
                                            render={(props) => <div><Enrollment/></div>}
+                                    />
+                                    <Route exact path="/home/Quiz"
+                                           render={(props) => <div><QuizComponent/></div>}
                                     />
                                     <Route exact path="/home/iSchedule"
                                            render={(props) => <div><ISchedule/></div>}
