@@ -34,6 +34,7 @@ class App extends Component {
                         <Route path="/" exact={true} component={Welcome} />
                         <SecureRoute path="/home" exact={true} component={HomePage} />
                         <Route path="/implicit/callback" component={LoginCallback} />
+                        <Route path="/signUp" component={SignUpPage} />
                         </div>
                     </div>
                     </Security>

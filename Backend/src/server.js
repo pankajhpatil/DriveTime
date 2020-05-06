@@ -9,6 +9,7 @@ var download = require('./routes/fetch')
 var payment = require('./routes/payment')
 var upload = require('./routes/upload')
 var instructor = require('./routes/instructor')
+
 var student = require('./routes/Student')
 const mongoose=require('mongoose');
 var session = require('express-session')
@@ -70,6 +71,7 @@ app.use('/payment', payment);
 app.use('/upload', upload);
 app.use('/instructor', instructor);
 app.use('/', student);
+// app.use('/zoom', zoom);
 
 app.get('/', (req, res) => {
    res.render('index', {personList: friendsList.getAll()});

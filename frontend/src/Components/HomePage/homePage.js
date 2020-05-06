@@ -27,6 +27,7 @@ import AppointmentComponent from '../Appointment/Appointment';
 import SuccessComponent from '../Enroll/Success';
 import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
+import IFeedback from '../Instructor/iFeedback';
 
 const {Text} = Typography;
 
@@ -41,20 +42,31 @@ class homePage extends Component {
         collapsed: false,
         loading: true,
         isAdmin: false,
-        showName: ''
+        showName: '',
+        currentUserName: '',
+        currentUserEmail: ''
     };
 
 
     async componentDidMount() {
+
+        const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
+        console.log("idToken.idToken.claims");
+        console.log(idToken);
+        this.setState({
+        currentUserEmail: idToken.idToken.claims.email,
+        currentUserName: idToken.idToken.claims.name
+        });
         // console.log(response.data.loggedInUser.username);
         this.setState({
-            isAdmin: true,
+            isAdmin: false,
             showName: 'Admin',
         })
 
         this.setState({
             isStudent: false,
-            isInstructor : false
+            isInstructor : true,
+            showName: 'Manish Lokhande'
         })
         //commented for tesing okta
         // let response = await RESTService.checkLogin();
@@ -118,6 +130,9 @@ class homePage extends Component {
         }else if (e.key === '5') {
             history.push('/home/iSchedule');
         }
+        else if (e.key === '6') {
+            history.push('/home/iFeedback');
+        }
     };
 
     logoutButton = async () => {
@@ -178,7 +193,10 @@ class homePage extends Component {
                 break;
             case '/home/appointments':
                     selectedKey = '5';
-                    break;    
+                    break;
+            case '/home/iFeedback':
+                selectedKey = '6';
+                break;      
 
             default:
                 // history.push('/home/allFiles');
@@ -245,6 +263,9 @@ class homePage extends Component {
                                 {(isAdmin) &&
                                 <Menu.Item key="5"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
+                                {(isInstructor) &&
+                                <Menu.Item key="6"><span><Icon type="schedule"/><span>Feedback</span></span></Menu.Item>
+                                }
                             </Menu>
                         </Sider>
                         <Layout style={{
@@ -309,6 +330,9 @@ class homePage extends Component {
                                     />
                                     <Route exact path="/home/resources"
                                            render={(props) => <div><ResourcesComponent/></div>}
+                                    />
+                                    <Route exact path="/home/iFeedback"
+                                           render={(props) => <div><IFeedback/></div>}
                                     />
                                     
                                 </Router>
