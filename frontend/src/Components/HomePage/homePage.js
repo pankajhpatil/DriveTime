@@ -51,28 +51,8 @@ class homePage extends Component {
 
 
     async componentDidMount() {
-
-        const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        console.log("idToken.idToken.claims");
-        console.log(idToken);
-        this.setState({
-        currentUserEmail: idToken.idToken.claims.email,
-        currentUserName: idToken.idToken.claims.name
-        });
-        // console.log(response.data.loggedInUser.username);
-        this.setState({
-            isAdmin: false,
-            showName: 'Admin',
-        })
-
-        this.setState({
-            isStudent: true,
-            isInstructor : false,
-            showName: 'Manish Lokhande'
-        })
-        //commented for tesing okta
         let response = await RESTService.checkLogin();
-        
+        console.log('Check logged in user',response)
         if (response.data.loggedInUser.username === "admin") {
 
             this.setState({

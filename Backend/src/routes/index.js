@@ -66,6 +66,7 @@ app.get('/getloggedInUserData', function (req, res) {
 
 app.get('/checkLogin', function (req, res) {
 
+    console.log(req.session)
     if (req.session.username && req.session.username !== "") {
         res.status(200).send({loggedInUser: req.session});
     }
@@ -253,9 +254,9 @@ app.post('/login/octa', function (req, res) {
         else {
             // User Present
             if(results.length === 1) {
-                req.session.username = req.body.username;
-                req.session.firstName = req.body.firstname;
-                req.session.lastName = req.body.lastname;
+                req.session.username = results[0].username;
+                req.session.firstName = results[0].firstname;
+                req.session.lastName = results[0].lastname;
                 req.session.usertype = results[0].usertype;
                 req.session.userFullName = results[0].firstname+" "+results[0].lastname;
                 req.session.user_id = results[0].user_id;

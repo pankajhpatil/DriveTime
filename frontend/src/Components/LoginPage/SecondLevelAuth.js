@@ -69,7 +69,12 @@ class SecondLevelAuth extends Component {
           const image = new File([blob], Date.now()+".jpeg");
           fd.append('file', image)
           this.state.renderWebcam=false;
-          
+          let video={}
+          video.width= 1;
+          video.height= 1;
+          video.facingMode= "user";
+          this.setState({videoConstraints:video})
+
         const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
         console.log('starting API call',fd)
          await  fetch(API_URL, {method: 'POST', body: fd}) 
@@ -136,7 +141,7 @@ class SecondLevelAuth extends Component {
 
       };
     
-    showcam = () => {
+    showcamera = () => {
         this.setState({showcam:true});
         let video={}
         video.width= 400;
@@ -235,7 +240,7 @@ class SecondLevelAuth extends Component {
                         <Jumbotron style={{ width: '40rem' , height: '20rem' }}>
                             <h1>Second level authetication</h1>
                             <br/>
-                            <Button type="primary"  className="login-form-button" onClick={this.showcam}>
+                            <Button type="primary"  className="login-form-button" onClick={this.showcamera}>
                             Take Picture
                         </Button>
                         <Button type="link"  onClick={this.back}>
