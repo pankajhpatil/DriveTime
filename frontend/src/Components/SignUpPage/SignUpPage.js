@@ -57,6 +57,10 @@ class SignUpPage extends Component {
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({loading: true});
+        if(!this.state.imageSrc){
+            message.error('Please take Picture');
+            this.setState({loading: false});
+        }else{
         this.props.form.validateFields(async (err, values) => {
             if (!err) {
                 // this.setState({loading: true});
@@ -83,9 +87,8 @@ class SignUpPage extends Component {
 
 
                         await RESTService.register(data);
-                    
-                    
-                    
+                        
+
                         
                         const imageSrc = this.state.imageSrc;
 
@@ -123,6 +126,7 @@ class SignUpPage extends Component {
                 message.error('Incomplete information');
             }
         });
+    }
     }
 
     render() {
