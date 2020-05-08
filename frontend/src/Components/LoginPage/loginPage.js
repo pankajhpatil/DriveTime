@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import {
     Form, Icon, Input, Button, Row, Col, Spin, message
 } from 'antd';
-
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
 import { connect } from "react-redux";
 import FacebookLogin from 'react-facebook-login';
 import GoogleLogin from 'react-google-login';
 const config = require('../../config.json');
+
+ 
 
 class loginPage extends Component {
     state = {
@@ -115,10 +116,13 @@ class loginPage extends Component {
     responseGoogleFailure = (response) => {
         console.log('Handle failure');
     }
+    
+    
 
     render() {
 
         const {getFieldDecorator} = this.props.form;
+           
         return (
             <div className="Login">
                 <Row type="flex" justify="space-around" align="middle" className="fullHeight">
@@ -182,9 +186,11 @@ class loginPage extends Component {
                             </Form>
                         </Spin>
                     </Col>
-                </Row>
+                </Row>   
             </div>
-        );
+            
+      
+         );
     }
 }
 

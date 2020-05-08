@@ -27,7 +27,7 @@ class WelcomePage extends Component {
     // }
 
     login = async () => {
-        this.props.authService.login('/home');
+        this.props.authService.login('/SecondLevelAuth');
     };
 
     logout = async () => {

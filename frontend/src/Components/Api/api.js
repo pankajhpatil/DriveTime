@@ -33,8 +33,7 @@ export const RESTService = {
     getUserdata,
     rating,
     payment,
-    uploadImage,
-    compareFaces
+    octaUserData
 };
 
 
@@ -107,6 +106,11 @@ function oAuthlogin(data) {
     let url = api + '/login/OAuth';
     return axios.post(url, data);
 }
+function octaUserData(data) {
+    let url = api + '/login/octa';
+    return axios.post(url, data);
+}
+
 
 function axiosGet(url) {
     return axios.get(url)
@@ -184,13 +188,5 @@ function rating(data){
 }
 function payment(data) {
     let url = api + '/payment/checkout';
-    return axios.post(url, data);
-}
-function uploadImage(data) {
-    let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
-    return axios.post(url, data);
-}
-function compareFaces(data) {
-    let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
     return axios.post(url, data);
 }

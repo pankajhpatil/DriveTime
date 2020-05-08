@@ -11,19 +11,19 @@ class StudentDashboardComponent extends Component{
     validateEnroll = async () => {
         
         let response=await RESTService.validateEnroll();
-        
-        if(response.statusText === 'No student profile found!'){
-            message.error('Complete the profile first!');
-            history.push('/home');
-        }
-        else if(response.statusText === 'Schedule already present!'){
+        history.push('/home/plan');
+        // if(response.statusText === 'No student profile found!'){
+        //     message.error('Complete the profile first!');
+        //     history.push('/home');
+        // }
+        // else if(response.statusText === 'Schedule already present!'){
             
-            message.error('Schedule already present. Visit appointments tab to view your all appointments!');
-            history.push('/home');
-        }
-        else{
-            history.push('/home/plan');
-        }
+        //     message.error('Schedule already present. Visit appointments tab to view your all appointments!');
+        //     history.push('/home');
+        // }
+        // else{
+        //     history.push('/home/plan');
+        // }
     };
 
     resources = () => { history.push('/home/resources'); };

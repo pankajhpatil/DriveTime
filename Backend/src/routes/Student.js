@@ -4,6 +4,9 @@ var app = express();
 const instructorschedule= require('./models/instructorSchedule');
 const Student = require('./models/StudentDetails');
 const Resource = require('./models/Resources');
+require('env2')('.env');
+var sendemail = require('sendemail')
+var email = sendemail.email;
 
 app.get('/testStudentApi', function(req, res){
     res.status(200).send('Api is Working');
@@ -56,15 +59,51 @@ app.post('/home/confirm', function (req, res) {
             
         if(student){
             
-            Student.updateOne({_id:student._id}, {
-                schedule: req.body.selectedSchedules,
-                plansummary: req.body.planSummary
-            })
-            .then(student => {
-                console.log("Student details updates successfully");
+            // Student.updateOne({_id:student._id}, {
+            //     schedule: req.body.selectedSchedules,
+            //     plansummary: req.body.planSummary
+            // })
+            // .then(student => {
+            //     console.log("Student details updates successfully");
                 
-            })
-            .catch(err=>console.log(err));
+            // })
+            // .catch(err=>console.log(err));
+         // Add send email code her 
+         console.log(Student);
+         var sqlQuery = "select * from authDB.user_data d WHERE (`username` = '" + req.body.username + "') and (`password` = '" + req.body.password + "')";
+         console.log(sqlQuery);
+     
+         mysql.fetchData(function (err, results) {
+             if (err) {
+                 throw err;
+             }
+             else {
+                 if (results.length === 1) {
+                     req.session.username = req.body.username;
+                     req.session.firstName = results[0].firstname;
+                     req.session.lastName = results[0].lastname;
+                     req.session.user_id = results[0].user_id;
+                     req.session.usertype = results[0].usertype;
+                     req.session.userFullName = results[0].firstname+" "+results[0].lastname;
+
+                     var person = {
+                        name : req.session.userFullName,
+                        email: results[0].email,
+                        subject:"Appointment Confirmation"
+                      }
+                       
+                      email('appointment', person, function(error, result){
+                        console.log(' - - - - - - - - - - - - - - - - - - - - -> email sent: ');
+                        console.log(result);
+                        console.log(' - - - - - - - - - - - - - - - - - - - - - - - - - - - -')
+                      })
+
+                     
+                 }
+             }
+         }, sqlQuery);
+         
+
         }
     })
     .catch(err=>console.log(err));
@@ -73,53 +112,53 @@ app.post('/home/confirm', function (req, res) {
     let selectedSchedules = req.body.selectedSchedules;
     let tableData = req.body.tableData;
 
-    selectedSchedules.forEach(element => {
+    // selectedSchedules.forEach(element => {
         
-        tableData.forEach(item => {
+    //     tableData.forEach(item => {
 
-            if(item.iusername == element.iusername && item.sdate == element.sdate){
+    //         if(item.iusername == element.iusername && item.sdate == element.sdate){
 
-                if(element.slot == 'Slot1- 8am-10am' && item.slot0810 == 'Y'){
-                    item.slot0810 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot2- 10am-12pm' && item.slot1012 == 'Y'){
-                    item.slot1012 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot3- 12pm-2pm' && item.slot1214 == 'Y'){
-                    item.slot1214 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot4- 2pm-4pm' && item.slot1416 == 'Y'){
-                    item.slot1416 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot5- 4pm-6pm' && item.slot1618 == 'Y'){
-                    item.slot1618 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot6- 6pm-8pm' && item.slot1820 == 'Y'){
-                    item.slot1820 = 'Booked_'+user;
-                }
-                else if(element.slot == 'Slot7- 8pm-10pm' && item.slot2022 == 'Y'){
-                    item.slot2022 = 'Booked_'+user;
-                }
+    //             if(element.slot == 'Slot1- 8am-10am' && item.slot0810 == 'Y'){
+    //                 item.slot0810 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot2- 10am-12pm' && item.slot1012 == 'Y'){
+    //                 item.slot1012 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot3- 12pm-2pm' && item.slot1214 == 'Y'){
+    //                 item.slot1214 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot4- 2pm-4pm' && item.slot1416 == 'Y'){
+    //                 item.slot1416 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot5- 4pm-6pm' && item.slot1618 == 'Y'){
+    //                 item.slot1618 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot6- 6pm-8pm' && item.slot1820 == 'Y'){
+    //                 item.slot1820 = 'Booked_'+user;
+    //             }
+    //             else if(element.slot == 'Slot7- 8pm-10pm' && item.slot2022 == 'Y'){
+    //                 item.slot2022 = 'Booked_'+user;
+    //             }
             
-                instructorschedule.updateOne({_id:item._id}, {
-                    slot0810: item.slot0810,
-                    slot1012: item.slot1012,
-                    slot1214: item.slot1214,
-                    slot1416: item.slot1416,
-                    slot1618: item.slot1618,
-                    slot1820: item.slot1820,
-                    slot2022: item.slot2022
-                })
-                .then(student => {
-                    console.log("Instructor details updates successfully");
-                })
-                .catch(err=>console.log(err));
-            }
+    //             instructorschedule.updateOne({_id:item._id}, {
+    //                 slot0810: item.slot0810,
+    //                 slot1012: item.slot1012,
+    //                 slot1214: item.slot1214,
+    //                 slot1416: item.slot1416,
+    //                 slot1618: item.slot1618,
+    //                 slot1820: item.slot1820,
+    //                 slot2022: item.slot2022
+    //             })
+    //             .then(student => {
+    //                 console.log("Instructor details updates successfully");
+    //             })
+    //             .catch(err=>console.log(err));
+    //         }
 
-        });
-    });
+    //     });
+    // });
 
-    res.status(200).send();
+    // res.status(200).send();
 });
 
 

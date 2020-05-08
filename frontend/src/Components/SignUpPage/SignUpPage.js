@@ -13,7 +13,9 @@ class SignUpPage extends Component {
     state = {
         loading: false,
         showcam:false,
-        videoConstraints:{}
+        videoConstraints:{},
+        imageSrc:null,
+        imageName:""
     };
     setRef = webcam => {
         this.webcam = webcam;
@@ -25,44 +27,10 @@ class SignUpPage extends Component {
 
     capture = async() => {
         
-        const imageSrc = this.webcam.getScreenshot();
-        fetch(imageSrc)
-        .then(res => res.blob())
-        .then( async(blob) => {
-          const fd = new FormData();
-          const image = new File([blob], Date.now()+".jpeg");
-          fd.append('file', image)
-          this.state.renderWebcam=false;
-          
-         const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
-
-         await  fetch(API_URL, {method: 'POST', body: fd}) 
-          .then(res => (console.log(res.json()))) 
-          .then(res => (console.log(res)));
-
-          this.setState({showcam:false});
-          message.success('Photo uploaded successfuly');
-
-        
-        });
-        
-        // const API_URL1 = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
-        //   fetch(API_URL1, {method: 'POST', body: fd}) 
-        //   .then(res => (console.log(res.json()))) 
-        //   .then(res => (console.log(res)))
-        // });
-    
-        
-    
-      //http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces  
-          
-      //    // Let's upload the file
-      //    // Don't set contentType manually → https://github.com/github/fetch/issues/505#issuecomment-293064470
-      //   //  const API_URL = 'https://example.com/add_image'
-      //   //  fetch(API_URL, {method: 'POST', body: fd)
-      //   //  .then(res => res.json()) 
-      //   //  .then(res => console.log(res))
-
+        const imgSrc = this.webcam.getScreenshot();
+        this.state.imageSrc=imgSrc;
+        this.setState({showcam:false});
+        message.success('Photo Captured. It will be moved to storage once registration is successful');
       };
     
     showcam = () => {
@@ -95,6 +63,7 @@ class SignUpPage extends Component {
                 console.log('Received values of form: ', values);
                 //await api call
 
+                this.state.imageName=values.uname+".jpeg";
 
                 let data = {};
 
@@ -106,16 +75,39 @@ class SignUpPage extends Component {
                 data.email = values.email;
                 data.phone = values.phone;
                 data.usertype= values.usertype;
-
+                data.userImage= this.state.imageName;
+                console.log('Before register')
+                console.log(this.state.imageName)
 
                 try {
 
 
-                    await RESTService.register(data);
+                        await RESTService.register(data);
+                    
+                    
+                    
+                        
+                        const imageSrc = this.state.imageSrc;
 
+                        fetch(imageSrc)
+                        .then(res => res.blob())
+                        .then( async(blob) => {
+                        const fd = new FormData();
+                        const image = new File([blob], this.state.imageName);
+                        fd.append('file', image)
+                        this.state.renderWebcam=false;
 
+                        console.log(fd);
+
+                        const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+
+                        await  fetch(API_URL, {method: 'POST', body: fd}) 
+                        .then(res => (console.log(res.json()))) 
+                        .then(res => (console.log(res)));
+
+                        });
+        
                     message.success('Registered Successfully');
-
 
                     history.push('/login');
                 }

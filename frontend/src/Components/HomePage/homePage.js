@@ -66,45 +66,45 @@ class homePage extends Component {
         })
 
         this.setState({
-            isStudent: false,
-            isInstructor : true,
+            isStudent: true,
+            isInstructor : false,
             showName: 'Manish Lokhande'
         })
         //commented for tesing okta
-        // let response = await RESTService.checkLogin();
+        let response = await RESTService.checkLogin();
         
-        // if (response.data.loggedInUser.username === "admin") {
+        if (response.data.loggedInUser.username === "admin") {
 
-        //     this.setState({
-        //         isAdmin: true,
-        //         showName: 'Admin',
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         isAdmin: false,
-        //         showName: response.data.loggedInUser.firstName + ' ' + response.data.loggedInUser.lastName,
-        //         // showName: response.data.loggedInUser.username
-        //     })
-        // }
+            this.setState({
+                isAdmin: true,
+                showName: 'Admin',
+            })
+        }
+        else {
+            this.setState({
+                isAdmin: false,
+                showName: response.data.loggedInUser.firstName + ' ' + response.data.loggedInUser.lastName,
+                // showName: response.data.loggedInUser.username
+            })
+        }
 
-        // if(response.data.loggedInUser.usertype === "student"){
-        //     this.setState({
-        //         isStudent: true,
-        //         isInstructor : false
-        //     })
-        // }
-        // else if(response.data.loggedInUser.usertype === "instructor"){
-        //     this.setState({
-        //         isStudent: false,
-        //         isInstructor : true
-        //     })
-        // }else{
-        //     this.setState({
-        //         isStudent: false,
-        //         isInstructor : false
-        //     })
-        // }
+        if(response.data.loggedInUser.usertype === "student"){
+            this.setState({
+                isStudent: true,
+                isInstructor : false
+            })
+        }
+        else if(response.data.loggedInUser.usertype === "instructor"){
+            this.setState({
+                isStudent: false,
+                isInstructor : true
+            })
+        }else{
+            this.setState({
+                isStudent: false,
+                isInstructor : false
+            })
+        }
 
     }
 
