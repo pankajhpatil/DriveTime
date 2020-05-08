@@ -23,6 +23,8 @@ app.post('/home/plans', function (req, res) {
     let slot1820=req.body.slot1820;
     let slot2022=req.body.slot2022;
 
+    // console.log(req.body);
+
         instructorschedule.find({$and: [
             { sdate: { $gte: startDate } }, { sdate: { $lte: endDate}}
         ]},(err, data) => {
@@ -35,7 +37,8 @@ app.post('/home/plans', function (req, res) {
 
             Student.find()
             .then(individualData => { 
-
+                // console.log("individualData");
+                // console.log(individualData);
                 let output = {};
                 output.individualData = individualData;
                 output.data = data

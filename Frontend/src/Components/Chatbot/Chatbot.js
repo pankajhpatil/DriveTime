@@ -2,6 +2,8 @@ import React, { Component} from 'react';
 import PropTypes from 'prop-types';
 import AWS from 'aws-sdk';
 import "../../Styles/chatbot.css";
+import { LexAPI } from "../Api/middleware"
+
 
 
 class LexChat extends React.Component {
@@ -17,6 +19,7 @@ class LexChat extends React.Component {
   }
 
   componentDidMount() {
+
     document.getElementById("inputField").focus();
     AWS.config.region = this.props.region || 'us-east-1';
     AWS.config.credentials = new AWS.CognitoIdentityCredentials({
@@ -105,8 +108,39 @@ class LexChat extends React.Component {
       responsePara.appendChild(document.createElement('br'));
     }
     if (lexResponse.dialogState === 'ReadyForFulfillment') {
-      responsePara.appendChild(document.createTextNode(
-        'Ready for fulfillment'));
+
+        if(lexResponse.intentName === 'InstructorAvailability'){
+
+            let data = {}
+            data.city = lexResponse.slots.City;
+            data.startDate = lexResponse.slots.StartDate
+            data.endDate = lexResponse.slots.EndDate;
+            data.plan = lexResponse.slots.Plan;
+            data.timeSlot = lexResponse.slots.TimeSlot;
+
+            let res=LexAPI.getInstructors(data);
+            responsePara.appendChild(document.createTextNode('Instructors available are:'));
+            responsePara.appendChild(document.createElement('br'));
+
+            Promise.resolve(res.then(function(value) {
+
+                  // console.log('response');
+                  // console.log(value);
+
+                  for(let i = 0; i < value.length; ++i){
+                    // console.log('in loop');
+                    // console.log(value[i]);
+                    responsePara.appendChild(document.createTextNode(''+(i+1)+': '+value[i].toString()));
+                    responsePara.appendChild(document.createElement('br'));
+                  }
+
+                  var bold = document.createElement('strong'),
+                  textnode = document.createTextNode("Please login to schedule!"); 
+                  bold.appendChild(textnode); 
+    
+                  responsePara.appendChild(bold);
+            }));
+        }
       // TODO:  show slot values
     } else {
       responsePara.appendChild(document.createTextNode(
@@ -147,10 +181,11 @@ class LexChat extends React.Component {
       width: '408px', 
       height: '40px',
       textAlign: 'center',
-      paddingTop: 12,
+      paddingTop: 3,
       paddingBottom: -12,
       color: '#FFFFFF',
-      fontSize: '24px'
+      fontSize: '24px',
+      // font: '"Helvetica Neue", Helvetica, Arial, sans-serif'
     }
 
     const chatcontainerStyle = {

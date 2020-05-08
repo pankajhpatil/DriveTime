@@ -70,7 +70,7 @@ class WelcomePage extends Component {
                  placeholder="Please enter 'book an instructor!'"
                  style={{position: 'absolute'}}
                  backgroundColor="#FFFFFF"
-                 height="430px"
+                 height = {430}
                  region="us-east-1"
                  headerText="Chat with our drivetime bot" />
             </div>
