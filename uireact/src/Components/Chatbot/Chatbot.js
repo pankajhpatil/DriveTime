@@ -109,7 +109,7 @@ class LexChat extends React.Component {
     }
     if (lexResponse.dialogState === 'ReadyForFulfillment') {
 
-        if(lexResponse.intentName === 'InstructorAvailability'){
+        if(lexResponse.intentName === 'BookInstructor'){
 
             let data = {}
             data.city = lexResponse.slots.City;
