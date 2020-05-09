@@ -66,6 +66,7 @@ app.get('/getloggedInUserData', function (req, res) {
 
 app.get('/checkLogin', function (req, res) {
 
+    console.log(req.session)
     if (req.session.username && req.session.username !== "") {
         res.status(200).send({loggedInUser: req.session});
     }
@@ -81,7 +82,7 @@ app.get('/checkLogin', function (req, res) {
 app.post('/register', function (req, res, next) {
 
     var sqlselectQuery = "select count(*) as cnt from `user_data` where ( `username` = '" + req.body.username + "')";
-
+    
     mysql.fetchData(function (err, results) {
         if (err) {
             console.log(err);
@@ -95,7 +96,7 @@ app.post('/register', function (req, res, next) {
                 return;
             } else {
                 console.log("user not present continue to insert");
-                var sqlQuery = "INSERT INTO `user_data` ( `username`, `password`, `firstname`, `lastname`,`email`,`modifieddate`,`phone`,`usertype`) VALUES ('" + req.body.username + "', '" + req.body.password + "', '" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.email + "', " + "now()" + ", '" + req.body.phone + "', '" + req.body.usertype + "')";
+                var sqlQuery = "INSERT INTO `user_data` ( `username`, `password`, `firstname`, `lastname`,`email`,`modifieddate`,`phone`,`usertype`,`userImage`) VALUES ('" + req.body.username + "', '" + req.body.password + "', '" + req.body.firstname + "', '" + req.body.lastname + "', '" + req.body.email + "', " + "now()" + ", '" + req.body.phone + "', '" + req.body.usertype + "', '" + req.body.userImage + "')";
 
                 mysql.fetchData(function (err, results) {
                     if (err) {
@@ -234,6 +235,34 @@ app.post('/login/OAuth', function (req, res) {
                 req.session.userFullName = results[0].firstname+" "+results[0].lastname;
                 req.session.user_id = results[0].user_id;
                 res.status(200).send({result: results}); 
+            }                   
+        }
+    }, sqlQuery);
+});
+
+
+
+app.post('/login/octa', function (req, res) {
+
+    //check if user data is available
+    var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
+
+    mysql.fetchData(function (err, results) {
+        if (err) {
+            throw err;
+        }
+        else {
+            // User Present
+            if(results.length === 1) {
+                req.session.username = results[0].username;
+                req.session.firstName = results[0].firstname;
+                req.session.lastName = results[0].lastname;
+                req.session.usertype = results[0].usertype;
+                req.session.userFullName = results[0].firstname+" "+results[0].lastname;
+                req.session.user_id = results[0].user_id;
+                res.status(200).send({result: results}); 
+            }else{
+                res.status(403).send({result: results}); 
             }                   
         }
     }, sqlQuery);

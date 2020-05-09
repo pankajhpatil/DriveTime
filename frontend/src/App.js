@@ -9,6 +9,8 @@ import SignUpPage from './Components/SignUpPage/SignUpPage'
 import { history } from './Helper/history.js';
 import { Security, SecureRoute, LoginCallback } from '@okta/okta-react';
 import Welcome from './Components/LoginPage/Welcome'
+import SecondLevelAuth from './Components/LoginPage/SecondLevelAuth'
+
 
 class App extends Component {
 
@@ -35,6 +37,8 @@ class App extends Component {
                         <Route path="/" exact={true} component={Welcome} />
                         <Route path="/login" exact={true} component={Welcome} />
                         <SecureRoute path="/home" exact={true} component={HomePage} />
+                        <SecureRoute path="/SecondLevelAuth" exact={true} component={SecondLevelAuth} />
+                        
                         <Route path="/implicit/callback" component={LoginCallback} />
                         <Route path="/signUp" component={SignUpPage} />
                         </div>

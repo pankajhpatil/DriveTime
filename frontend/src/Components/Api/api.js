@@ -35,7 +35,8 @@ export const RESTService = {
     payment,
     uploadImage,
     compareFaces,
-    registerOkta
+    registerOkta,
+    octaUserData
 };
 
 
@@ -108,6 +109,11 @@ function oAuthlogin(data) {
     let url = api + '/login/OAuth';
     return axios.post(url, data);
 }
+function octaUserData(data) {
+    let url = api + '/login/octa';
+    return axios.post(url, data);
+}
+
 
 function axiosGet(url) {
     return axios.get(url)
