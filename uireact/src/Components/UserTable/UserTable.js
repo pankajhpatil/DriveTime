@@ -33,17 +33,6 @@ class UserTable extends Component {
 
 
     render() {
-// //{
-//         "user_id": 14,
-//             "username": "testuser6",
-//             "password": "test6",
-//             "firstname": "test6",
-//             "lastname": "user6",
-//             "email": "pankajhpatil21@gmail.com",
-//             "modifieddate": "2019-10-24T09:18:50.000Z",
-//             "phone": "+1(669)288-4958"
-//     }
-
         const columns = [
             {
                 title: 'First Name',
@@ -60,6 +49,10 @@ class UserTable extends Component {
             {
                 title: 'Email',
                 dataIndex: 'email',
+            },
+            {
+                title: 'User Type',
+                dataIndex: 'usertype',
             },
             {
                 title: 'Phone',

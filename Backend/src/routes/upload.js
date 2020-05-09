@@ -65,7 +65,7 @@ app.post("/", upload.single("file"), function (req, res) {
                 s3_key: params.Key
             };
             //check if already exisits
-            var sqlfetchQuery = "select count(*) as cnt from `dropboxmysql`.`user_files` where ( file_name = '" + file.originalname + "')";
+            var sqlfetchQuery = "select count(*) as cnt from `authDB`.`user_files` where ( file_name = '" + file.originalname + "')";
             
             mysql.fetchData(function (err, results) {
                 if (err) {
@@ -77,7 +77,7 @@ app.post("/", upload.single("file"), function (req, res) {
 
                     if (Number(cnt) > 0) {
                         //update data
-                        var sqlupdateQuery = "UPDATE `dropboxmysql`.`user_files` SET `fileuploadtime` = '" + ((endDate - startDate) / 1000) + "', `filemodifieddate` = now() ,`filedesc` = 'File Updated' WHERE (`file_name` = '" + file.originalname + "')";
+                        var sqlupdateQuery = "UPDATE `authDB`.`user_files` SET `fileuploadtime` = '" + ((endDate - startDate) / 1000) + "', `filemodifieddate` = now() ,`filedesc` = 'File Updated' WHERE (`file_name` = '" + file.originalname + "')";
 
                         mysql.fetchData(function (err, results) {
                             if (err) {
@@ -90,7 +90,7 @@ app.post("/", upload.single("file"), function (req, res) {
                     }
                     else {
                         //insert data
-                        var sqlinsertQuery = "INSERT INTO `dropboxmysql`.`user_files` (`userid`, `file_name`,`filedesc`, `fileuploadtime`, `filemodifieddate`, `filecreatedate`, `fileurl`) VALUES ('" + req.session.user_id + "','" + file.originalname + "','" + req.body.description + "', '" + ((endDate - startDate) / 1000) + "', " + "now()" + ", " + "now()" + ", '" + url + "')";
+                        var sqlinsertQuery = "INSERT INTO `authDB`.`user_files` (`userid`, `file_name`,`filedesc`, `fileuploadtime`, `filemodifieddate`, `filecreatedate`, `fileurl`) VALUES ('" + req.session.user_id + "','" + file.originalname + "','" + req.body.description + "', '" + ((endDate - startDate) / 1000) + "', " + "now()" + ", " + "now()" + ", '" + url + "')";
 
                         mysql.fetchData(function (err, results) {
                             if (err) {
@@ -129,7 +129,7 @@ app.post("/delete", function (req, res) {
             res.status(500).json({error: true, Message: err});
         } else {
 
-            var sqldeleteQuery = "    DELETE FROM `dropboxmysql`.`user_files` WHERE (`file_name` = '" + req.body.fileName + "')";
+            var sqldeleteQuery = "    DELETE FROM `authDB`.`user_files` WHERE (`file_name` = '" + req.body.fileName + "')";
 
             mysql.fetchData(function (err, results) {
                 if (err) {
@@ -164,7 +164,7 @@ app.get('/test', function (req, res) {
 
 
 app.post('/updateuser', function (req, res, next) {
-    var sqlQuery = "UPDATE `dropboxmysql`.`user_data` SET `password` = '" + req.body.password + "',`firstname` = '" + req.body.firstname + "',`lastname` = '" + req.body.lastname + "',`email` = '" + req.body.email + "',`phone`= '" + req.body.phone + "',`modifieddate`=now()  WHERE (`username` = '" + req.body.username + "')";
+    var sqlQuery = "UPDATE `authDB`.`user_data` SET `password` = '" + req.body.password + "',`firstname` = '" + req.body.firstname + "',`lastname` = '" + req.body.lastname + "',`email` = '" + req.body.email + "',`phone`= '" + req.body.phone + "',`modifieddate`=now()  WHERE (`username` = '" + req.body.username + "')";
 
     mysql.fetchData(function (err, results) {
         if (err) {
@@ -181,8 +181,9 @@ app.post('/updateuser', function (req, res, next) {
 
 app.post('/deleteuser', function (req, res, next) {
 
-    var sqlQuery = "delete from `dropboxmysql`.`user_data`   WHERE (`username` = '" + req.body.username + "')";
- 
+    var sqlQuery = "delete from `authDB`.`user_data`   WHERE (`username` = '" + req.body.username + "')";
+    console.log('*********************')
+    console.log(sqlQuery)
     mysql.fetchData(function (err, results) {
         if (err) {
             throw err;
