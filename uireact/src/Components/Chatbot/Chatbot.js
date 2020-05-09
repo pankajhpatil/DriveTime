@@ -112,11 +112,11 @@ class LexChat extends React.Component {
         if(lexResponse.intentName === 'BookInstructor'){
 
             let data = {}
-            data.city = lexResponse.slots.City;
-            data.startDate = lexResponse.slots.StartDate
-            data.endDate = lexResponse.slots.EndDate;
+            data.city = lexResponse.slots.Cities;
+            data.startDate = lexResponse.slots.Start
+            data.endDate = lexResponse.slots.End;
             data.plan = lexResponse.slots.Plan;
-            data.timeSlot = lexResponse.slots.TimeSlot;
+            data.timeSlot = lexResponse.slots.Slots;
 
             let res=LexAPI.getInstructors(data);
             responsePara.appendChild(document.createTextNode('Instructors available are:'));
