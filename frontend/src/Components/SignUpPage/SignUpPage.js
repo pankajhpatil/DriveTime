@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
     Form, Icon, Input, Button, Row, Col, Spin, message, Select
 } from 'antd';
-
+// const {  QuestionCircleOutlined  } = icons;
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
 import { connect } from "react-redux";
@@ -21,7 +21,7 @@ class SignUpPage extends Component {
         this.webcam = webcam;
       };
 
-      async componentDidMount() {
+    async componentDidMount() {
         
     }
 
@@ -46,14 +46,6 @@ class SignUpPage extends Component {
         this.webcam.stopAndCleanup();
     };
 
-    
-    async componentDidMount() {
-
-
-    }
-
-// `username`, `password`, `firstname`, `lastname`,`email`,`modifieddate`,`phone`
-
     handleSubmit = (e) => {
         e.preventDefault();
         this.setState({loading: true});
@@ -67,59 +59,99 @@ class SignUpPage extends Component {
                 console.log('Received values of form: ', values);
                 //await api call
 
-                this.state.imageName=values.uname+".jpeg";
+                // this.state.imageName=values.uname+".jpeg";
+                // let data = {};
+                // data.username = values.uname;
+                // data.password = values.password;
+                // data.firstname = values.fname;
+                // data.lastname = values.lname;
+                // data.email = values.email;
+                // data.phone = values.phone;
+                // data.usertype= values.usertype;
+                // data.userImage= this.state.imageName;
+                // console.log('Before register')
+                // console.log(this.state.imageName)
 
-                let data = {};
+                // try {
+                //         await RESTService.register(data);
+                //     message.success('Registered Successfully');
+                //     history.push('/login');
+                // }
+                // catch (err) {
 
-
-                data.username = values.uname;
-                data.password = values.password;
-                data.firstname = values.fname;
-                data.lastname = values.lname;
-                data.email = values.email;
-                data.phone = values.phone;
-                data.usertype= values.usertype;
-                data.userImage= this.state.imageName;
-                console.log('Before register')
-                console.log(this.state.imageName)
-
-                try {
-
-
-                        await RESTService.register(data);
-                        
-
-                        
-                        const imageSrc = this.state.imageSrc;
-
-                        fetch(imageSrc)
-                        .then(res => res.blob())
-                        .then( async(blob) => {
-                        const fd = new FormData();
-                        const image = new File([blob], this.state.imageName);
-                        fd.append('file', image)
-                        this.state.renderWebcam=false;
-
-                        console.log(fd);
-
-                        const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
-
-                        await  fetch(API_URL, {method: 'POST', body: fd}) 
-                        .then(res => (console.log(res.json()))) 
-                        .then(res => (console.log(res)));
-
-                        });
-        
-                    message.success('Registered Successfully');
-
-                    history.push('/login');
-                }
-                catch (err) {
+                if(values.password !== values.confirmPassword){
                     this.setState({loading: false});
-                    message.error('User name not available!');
+                    message.error('Password did not match!');
                 }
+                else{
 
+                    let data = {};
+                    data.username = values.email;
+                    data.password = values.password;
+                    data.firstname = values.fname;
+                    data.lastname = values.lname;
+                    data.email = values.email;
+                    data.phone = values.phone;
+                    data.usertype= values.usertype;
 
+                    try {
+                        await RESTService.register(data);
+
+                        let profileData = {};
+                        profileData.firstName = values.fname;
+                        profileData.lastName = values.lname;
+                        profileData.email = values.email;
+                        profileData.login = values.email;
+                        profileData.mobilePhone = values.phone;
+
+                        let passwordData = {}
+                        passwordData.value = values.password;
+
+                        let credentialsData = {};
+                        credentialsData.password  = passwordData;
+
+                        let oktaData = {};
+                        oktaData.profile = profileData;
+                        oktaData.credentials = credentialsData;
+
+                        let response = await RESTService.registerOkta(oktaData); 
+                        // console.log("Sucess response")
+                        // console.log(response)
+
+                        if(response){
+
+                            const imageSrc = this.state.imageSrc;
+
+                            fetch(imageSrc)
+                            .then(res => res.blob())
+                            .then( async(blob) => {
+                            const fd = new FormData();
+                            const image = new File([blob], this.state.imageName);
+                            fd.append('file', image)
+                            this.state.renderWebcam=false;
+
+                            console.log(fd);
+
+                            const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+
+                            await  fetch(API_URL, {method: 'POST', body: fd}) 
+                            .then(res => (console.log(res.json()))) 
+                            .then(res => (console.log(res)));
+
+                            });
+                            message.success('Registered Successfully');
+                            history.push('/login');
+                        }
+                        else{
+                            this.setState({loading: false});
+                        }
+                        // console.log(response);
+                    }
+                    catch (err) {
+                        this.setState({loading: false});
+                        message.error('Email already registered!');
+                    }
+                }
             }
             else {
                 this.setState({loading: false});
@@ -133,6 +165,7 @@ class SignUpPage extends Component {
 
 
         const {getFieldDecorator} = this.props.form;
+        const tips = 'Password requirements: at least 8 characters, a lowercase letter, an uppercase letter, a number, no parts of your username. Your password cannot be any of your last 4 passwords.';
         const cambutton = this.state.showcam ?
                 (<div>
                 <div>
@@ -185,17 +218,7 @@ class SignUpPage extends Component {
                                     )}
                                 </Form.Item>
 
-
-                                <Form.Item label="User Name" className="marginBottom0">
-                                    {getFieldDecorator('uname', {
-                                        rules: [{required: true, message: 'Please enter your User Name!'}],
-                                    })(
-                                        <Input prefix={<Icon type="global" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                                               placeholder="User Name"/>
-                                    )}
-                                </Form.Item>
-
-                                <Form.Item label="e-mail" className="marginBottom0">
+                                <Form.Item label="e-mail" type ="email" className="marginBottom0">
                                     {getFieldDecorator('email', {
                                         rules: [{required: true, message: 'Please enter your email!'}],
                                     })(
@@ -203,19 +226,25 @@ class SignUpPage extends Component {
                                                placeholder="email"/>
                                     )}
                                 </Form.Item>
-
-                                <Form.Item label="password" className="marginBottom0">
+                                <Form.Item label="Password" name="password" className="marginBottom0" help = {tips}>
                                     {getFieldDecorator('password', {
                                         rules: [{required: true, message: 'Please input your Password!'}],
                                     })(
-                                        <Input prefix={<Icon type="lock" style={{color: 'rgba(0,0,0,.25)'}}/>}
-                                               type="password" placeholder="Password"/>
+                                        <Input.Password />
                                     )}
                                 </Form.Item>
 
-                                <Form.Item label="Phone" className="marginBottom0">
+                                <Form.Item name="confirm" label="Confirm Password" className="marginBottom0" >
+                                {getFieldDecorator('confirmPassword', {
+                                        rules: [{required: true, message: 'Please confirm your Password!'}],
+                                    })(
+                                        <Input.Password />
+                                    )}
+                                </Form.Item> 
+
+                                <Form.Item label="Mobile" className="marginBottom0">
                                     {getFieldDecorator('phone', {
-                                        rules: [{required: true, message: 'Please enter your Phone number!'}],
+                                        rules: [{required: true, message: 'Please enter your Mobile number!'}],
                                     })(
                                         <Input prefix={<Icon type="global" style={{color: 'rgba(0,0,0,.25)'}}/>}
                                                placeholder="Phone"/>

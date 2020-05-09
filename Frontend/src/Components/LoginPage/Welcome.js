@@ -65,7 +65,7 @@ class WelcomePage extends Component {
                         </Card>
                     </Col>
                 </Row>
-                <LexChat botName="DriveTime"
+                <LexChat botName="drivetime"
                  IdentityPoolId="us-east-1:77d13f41-a183-49e7-98af-fea9fcd1a67e"
                  placeholder="Please enter 'book an instructor!'"
                  style={{position: 'absolute'}}
