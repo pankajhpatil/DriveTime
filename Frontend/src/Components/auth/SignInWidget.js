@@ -11,6 +11,10 @@ class SignInWidget extends Component {
       baseUrl: this.props.baseUrl,
       logo: 'logo.png'
     });
+    this.widget.idps= [
+      {type: 'FACEBOOK', id: '3212638468799647'}
+      ]; 
+    this.widget.idpDisplay ="SECONDARY";
     this.widget.renderEl({ el }, this.props.onSuccess, this.props.onError);
   }
 

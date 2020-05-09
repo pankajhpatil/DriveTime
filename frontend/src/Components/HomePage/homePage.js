@@ -53,7 +53,7 @@ class homePage extends Component {
     async componentDidMount() {
 
         const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        console.log("idToken.idToken.claims");
+        console.log("idToken");
         console.log(idToken);
         this.setState({
         currentUserEmail: idToken.idToken.claims.email,

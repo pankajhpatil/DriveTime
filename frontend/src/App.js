@@ -24,6 +24,7 @@ class App extends Component {
         return (
             <div className="App">
                 <Router history={history}>
+                <Switch>
                     <Security
                     issuer="https://dev-930901.okta.com/oauth2/default"
                     client_id="0oaah3hwpAyoyRLpo4x6"
@@ -39,6 +40,7 @@ class App extends Component {
                         </div>
                     </div>
                     </Security>
+                </Switch>
                 </Router>
                  {/* <Router history={history}>
                     <Switch>

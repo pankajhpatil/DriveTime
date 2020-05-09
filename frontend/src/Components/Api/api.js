@@ -34,7 +34,8 @@ export const RESTService = {
     rating,
     payment,
     uploadImage,
-    compareFaces
+    compareFaces,
+    registerOkta
 };
 
 
@@ -118,9 +119,10 @@ function handleSuccess(response) {
     return response;
 }
 
-function handleError(error) {
+async function handleError(error) {
     if (error.response) {
-        return Promise.reject(error.response);
+        // return Promise.reject(error.response);
+        return Promise.resolve(error.response);
     }
 }
 
@@ -194,3 +196,32 @@ function compareFaces(data) {
     let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
     return axios.post(url, data);
 }
+async function registerOkta(data){
+    let url = 'https://dev-930901.okta.com/api/v1/users?activate=true';
+    var config = {
+        headers: { 'Content-Type': 'application/json',
+                    'Accept' : 'application/json' ,
+                    'Authorization' : 'SSWS 008XiDB564uZ7F1aKuIsMSB75uicxOvmbr2nQ73GsQ'},
+      };
+
+      return await axios.post(url, data, config)
+      .then(res => { 
+          console.log("Sucess done for response");
+          console.log(res);
+          return res;
+       })
+      .catch(err => { handleError(err)
+          .then(res => {
+                Promise.resolve(res).then(function(value) {
+                console.log(value.data.errorCauses[0].errorSummary);
+                if((value.data.errorCauses[0].errorSummary).includes("Password requirements were not met")){
+                    message.error("Password requirements were not met!")
+                }
+                else if((value.data.errorCauses[0].errorSummary).includes("An object with this field already exists")){
+                    message.error("You are already registered! Please login")
+                }
+                else if((value.data.errorCauses[0].errorSummary).includes("Username must be in the form of an email address")){
+                    message.error("Please enter a valid email address");
+                }
+          })});
+})}
