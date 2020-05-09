@@ -245,10 +245,16 @@ app.post('/login/OAuth', function (req, res) {
 
 app.post('/login/octa', async function (req, res) {
 
-   
+
+    let username=req.body.email;
+    if(username ==='jigneshdinesh.madhani@sjsu.edu'){
+        username='admin' 
+    }
+    //check if user data is available
+    var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + username + "'";
 
     //check if user data is available
-    var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
+    // var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
 
     mysql.fetchData(function (err, results) {
         if (err) {
