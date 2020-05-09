@@ -1,6 +1,6 @@
 var express = require('express');
-var app = express();
-// var router = express.Router();
+//var app = express();
+var app = express.Router();
 const config = require('../../config');
 var mysql = require('./db/sql');
 const Student = require('./models/StudentDetails');
@@ -39,9 +39,9 @@ app.post('/login', function (req, res) {
 });
 
 app.get('/getloggedInUserData', function (req, res) {
-
+    console.log('req.session',req.session)
     var sqlQuery = "select * from authDB.user_data d WHERE (`username` = '" + req.session.username + "')";
-
+console.log('sqlQuery',sqlQuery)
     mysql.fetchData(function (err, results) {
         if (err) {
             throw err;
@@ -65,7 +65,7 @@ app.get('/getloggedInUserData', function (req, res) {
 
 
 app.get('/checkLogin', function (req, res) {
-
+    console.log('check login')
     console.log(req.session)
     if (req.session.username && req.session.username !== "") {
         res.status(200).send({loggedInUser: req.session});
@@ -175,6 +175,7 @@ app.get('/logout', function (req, res) {
 });
 
 app.post('/login/OAuth', function (req, res) {
+    console.log('inside oauth')
 
     //check if user data is available
     var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
@@ -242,7 +243,9 @@ app.post('/login/OAuth', function (req, res) {
 
 
 
-app.post('/login/octa', function (req, res) {
+app.post('/login/octa', async function (req, res) {
+
+   
 
     //check if user data is available
     var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
@@ -252,6 +255,9 @@ app.post('/login/octa', function (req, res) {
             throw err;
         }
         else {
+
+            console.log('results')
+            console.log(results)
             // User Present
             if(results.length === 1) {
                 req.session.username = results[0].username;
@@ -266,6 +272,7 @@ app.post('/login/octa', function (req, res) {
             }                   
         }
     }, sqlQuery);
+    console.log(req.session)
 });
 
 //Manish

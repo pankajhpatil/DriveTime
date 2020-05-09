@@ -27,9 +27,16 @@ class EnrollComponent extends Component{
     async componentDidMount() {
 
         try {
+            const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
+            let data={}
+            data.email= idToken.idToken.claims.email;
+            await RESTService.octaUserData(data)
+
+
             let response=await RESTService.checkProfile();
             let userdata=await RESTService.getloggedInUserData();
-
+            console.log('Profile data',response)
+            console.log('userdata data',userdata)
             let usertype=userdata.data.result[0].usertype;
             if (usertype === "instructor") {
 

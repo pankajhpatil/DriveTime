@@ -34,7 +34,7 @@ class SecondLevelAuth extends Component {
         let data={}
         data.email= idToken.idToken.claims.email;
         console.log(data);
-        let userDetails=RESTService.oAuthlogin(data)
+        let userDetails=RESTService.octaUserData(data)
         
         let imageNameStored=userDetails.data.result[0].imageName;
         this.setState({imageName:imageNameStored})
@@ -140,6 +140,29 @@ class SecondLevelAuth extends Component {
       //   //  .then(res => console.log(res))
 
       };
+
+      captureDummy = async ()=>{
+        const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
+        console.log("idToken.idToken.claims");
+        console.log(idToken);
+        let data={}
+        data.email= idToken.idToken.claims.email;
+        console.log(data);
+        let userDetails= await RESTService.octaUserData(data)
+        this.props.authService.login('/home');
+
+        // let usertypeL=userDetails.data.result[0].usertype;
+        //             if( usertypeL === 'student'){
+        //             history.push('/signUp');
+        //         }else if( usertypeL=== 'instructor'){
+        //             history.push('/home/instructor');
+        //         }else if( usertypeL=== 'vendor'){
+        //             history.push('/home/vedor');
+        //         }else{
+        //             history.push('/home');
+        //         }
+
+      }
     
     showcamera = () => {
         this.setState({showcam:true});
@@ -212,7 +235,7 @@ class SecondLevelAuth extends Component {
                         videoConstraints={this.state.videoConstraints}/>
                         </Row>
                         <Row type="flex" justify="space-around"  className="fullHeight" >
-                        <Button type="primary"  onClick={this.capture} loading={this.state.loading}>
+                        <Button type="primary"  onClick={this.captureDummy} loading={this.state.loading}>
                             Click Picture(Beta)
                         </Button>
                         <Button type="primary"  onClick={this.hidecam} loading={this.state.loading}>
