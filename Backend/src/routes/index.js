@@ -32,8 +32,6 @@ app.post('/login', function (req, res) {
                 res.status(403);
                 res.send({msg: 'Invalid credentials'});
             }
-
-
         }
     }, sqlQuery);
 });
@@ -364,7 +362,7 @@ app.get('/home', function (req, res) {
         .then(student => {
         
             if(student){
-                if(student.schedule.length == 0){
+                if(student.schedule === undefined || student.schedule.length === 0){
                     res.statusMessage = "student profile found!";
                 }
                 else{
