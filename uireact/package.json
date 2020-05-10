@@ -32,7 +32,8 @@
     "react-youtube": "^7.9.0",
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.7.3",
+    "webpack": "^4.42.0"
   },
   "scripts": {
     "start": "react-scripts start",

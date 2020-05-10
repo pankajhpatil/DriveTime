@@ -1,9 +1,9 @@
 {
   "AWS_Uploaded_File_URL_LINK":"",
-  "AWS_ACCESS_KEY_ID":"AKIAJZG6URPB6QEAUHNQ",
-  "AWS_SECRET_ACCESS_KEY":"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",
+  "AWS_ACCESS_KEY_ID":"AKIA6F3WO2ME5PKSVUMZ",
+  "AWS_SECRET_ACCESS_KEY":"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",
   "AWS_REGION":"us-east-2",
-  "AWS_BUCKET_NAME":"drivetime",
+  "AWS_BUCKET_NAME":"drivetimecmpe282",
   "MongoURI": "mongodb+srv://manishDb:ty2TOCRijaDwJhUY@emaily-2r7gc.mongodb.net/test?retryWrites=true&w=majority"
 
 }

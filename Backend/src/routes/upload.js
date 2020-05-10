@@ -47,11 +47,12 @@ app.post("/", upload.single("file"), function (req, res) {
         var cnt = "";
 
         if (err) {
+            console.log(err)
             res.status(500).json({error: true, Message: err});
         } else {
             //success
             var url=data.Location;
-            url = url.replace('https://cmpe281dropboxfiles.s3.us-west-1.amazonaws.com', 'https://d2jq6vuif68y2f.cloudfront.net');
+            url = url.replace('https://drivetimecmpe282.s3.us-east-2.amazonaws.com', 'https://d30e3ftnuh94ar.cloudfront.net');
 
             res.send({data});
 
