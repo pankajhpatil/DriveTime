@@ -56,6 +56,13 @@ class homePage extends Component {
 
     async componentDidMount() {
 
+        //to store session
+        const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
+        let data={}
+        data.email= idToken.idToken.claims.email;
+        let userDetails=RESTService.octaUserData(data)
+
+
         //commented for tesing okta
         let response = await RESTService.checkLogin();
         

@@ -56,14 +56,14 @@ async function getInstructors(data) {
 
     let response= await RESTService.getInstructorsForDates(request);
     let list = [];
-    let arr = response.data.result.individualData;
+    let arr = response.data.result.data
 
-    // console.log("Complete response");
-    // console.log(arr);
+    console.log("Complete response");
+    console.log(arr);
     for(let i = 0; i < arr.length; ++i){
 
-        if(!list.includes(arr[i].UserFullName)){
-            list.push(arr[i].UserFullName)
+        if(!list.includes(arr[i].iusername)){
+            list.push(arr[i].iusername)
         }
     }
     // console.log("list");

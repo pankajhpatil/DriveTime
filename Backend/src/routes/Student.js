@@ -34,8 +34,8 @@ app.post('/home/plans', function (req, res) {
 
             Student.find()
             .then(individualData => { 
-                // console.log("individualData");
-                // console.log(individualData);
+                console.log("individualData");
+                console.log(data);
                 let output = {};
                 output.individualData = individualData;
                 output.data = data
