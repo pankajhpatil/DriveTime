@@ -78,50 +78,62 @@ class SecondLevelAuth extends Component {
             
             console.log("Uploading... " + image.name);
            let res= await RESTService.uploadToRekognitionDB(data);
-            //await RESTService.userProfilePicUpload(data);
-            console.log("Done Uploading... " + res);    
-                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
-                const requestOptions = {
-                    method: 'POST'
-                };
-
-
-         await  fetch(API_URL, requestOptions) 
-          .then(
-            async (res) => {
-           let value= await Promise.resolve(res.json()).then(function(value) {
-                console.log(value.file1); 
-                console.log(value.file2); 
-                console.log(value.similarity);
-                if(value.file2 && value.similarity && value.similarity > 98 ){
-                    return value.file1
-                }else{
-                    
-                    return 'error'
-                }
-                
-
-        }); 
+           console.log(res);
         this.setState({showcam:false});
         this.setState({loading:false});
+           if(res.data.Message==='FaceMatched'){
+                message.success('Authenticated successfully');
+                this.props.authService.login('/home');
+            }
+            else{
+                message.error('Authetication failed');
+            }
+
+            // }
+        //     //await RESTService.userProfilePicUpload(data);
+        //     console.log("Done Uploading... " + res);    
+        //         const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
+        //         const requestOptions = {
+        //             method: 'POST'
+        //         };
+
+
+        //  await  fetch(API_URL, requestOptions) 
+        //   .then(
+        //     async (res) => {
+        //    let value= await Promise.resolve(res.json()).then(function(value) {
+        //         console.log(value.file1); 
+        //         console.log(value.file2); 
+        //         console.log(value.similarity);
+        //         if(value.file2 && value.similarity && value.similarity > 98 ){
+        //             return value.file1
+        //         }else{
+                    
+        //             return 'error'
+        //         }
+                
+
+        // }); 
+        // this.setState({showcam:false});
+        // this.setState({loading:false});
         
-        if(value === 'error'){
-            message.error('Authetication failed');
-        }else{
-            if(value===this.state.imageName){
+        // if(value === 'error'){
+        //     message.error('Authetication failed');
+        // }else{
+        //     if(value===this.state.imageName){
 
-            message.success('Authenticated successfully');
-            this.props.authService.login('/home');
-        }else{
-            message.error('Authetication failed');
-        }
+        //     message.success('Authenticated successfully');
+        //     this.props.authService.login('/home');
+        // }else{
+        //     message.error('Authetication failed');
+        // }
 
-        }
+        // }
 
-          }
+        //   }
               
               
-              ).catch(err => console.error('Caught error: ', err));
+        //       ).catch(err => console.error('Caught error: ', err));
 
           
 

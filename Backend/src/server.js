@@ -9,6 +9,7 @@ var download = require('./routes/fetch')
 var payment = require('./routes/payment')
 var upload = require('./routes/upload')
 var instructor = require('./routes/instructor')
+var rekognition = require('./routes/rekognition')
 
 var student = require('./routes/Student')
 const mongoose=require('mongoose');
@@ -50,7 +51,7 @@ mongoose.connect(db,{ useNewUrlParser: true})
 app.use(cors(
     {
         // origin: ['http://localhost:3000','https://localhost:3000','https://www.geethupadachery.com/'],
-        origin : [/geethupadachery\.com$/,],
+        origin : [/geethupadachery\.com$/,'http://localhost:3000'],
         methods : ['GET', 'PUT', 'POST','DELETE','HEAD'],
         allowedHeaders : ['Content-Type', 'Authorization'],
         credentials: true
@@ -73,7 +74,7 @@ app.use('/payment', payment);
 app.use('/upload', upload);
 app.use('/instructor', instructor);
 app.use('/', student);
-// app.use('/zoom', zoom);
+app.use('/rekognition', rekognition);
 
 app.get('/', (req, res) => {
    res.render('index', {personList: friendsList.getAll()});

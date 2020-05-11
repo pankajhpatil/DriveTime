@@ -226,7 +226,34 @@ app.post("/compareUpload", upload.single("file"), async function (req, res) {
         } else {
             console.log('Upload sucessful')
             console.log(data);
-            res.status(200).json({error: false, Message: "Upload successfule"});
+            // res.status(200).json({error: false, Message: "Upload successfule"});
+            var params1 = {
+                SimilarityThreshold: 90, 
+                SourceImage: {
+                 S3Object: {
+                  Bucket: config.AWS_BUCKET_NAME_2, 
+                  Name: "pankajhpatil21@gmail.com.jpg"
+                 }
+                }, 
+                TargetImage: {
+                 S3Object: {
+                  Bucket: config.AWS_BUCKET_NAME_1, 
+                  Name: file.originalname
+                 }
+                }
+               };
+        
+            var rekognition = new AWS.Rekognition({
+                accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+                secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+                region: 'us-east-2'
+            });
+            
+            
+            rekognition.compareFaces(params1, function (err, data) {
+                if (err) console.log(err, err.stack); // an error occurred
+                else     console.log(data);           // successful response
+            });
         }
     });
 });
@@ -260,7 +287,8 @@ app.post("/userProfileUpload", upload.single("file"), async function (req, res) 
         } else {
             console.log("Uploading is working good")
             console.log(data);
-            res.status(200).json({error: false, Message: "Upload successfule"});
+            // res.status(200).json({error: false, Message: "Upload successfule"});
+            
         }
     });
 });

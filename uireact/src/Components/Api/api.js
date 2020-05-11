@@ -98,13 +98,13 @@ function upload(data) {
 
 
 function uploadToRekognitionDB(data){
-    let url = api + '/upload/compareUpload';
+    let url = api + '/rekognition/compareMyBucket';
     return axios.post(url, data)
 }
 
 
 function userProfilePicUpload(data){
-    let url = api + '/upload/userProfileUpload';
+    let url = api + '/rekognition/uploadMyBucket';
     return axios.post(url, data)
 }
 

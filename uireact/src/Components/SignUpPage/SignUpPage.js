@@ -84,7 +84,7 @@ class SignUpPage extends Component {
                     message.error('Password did not match!');
                 }
                 else{
-                    this.state.imageName=values.email+".jpeg";
+                    this.state.imageName=(values.email).replace('@gmail.com','')+".jpg";
                     let data = {};
                     data.username = values.email;
                     data.password = values.password;
@@ -136,9 +136,9 @@ class SignUpPage extends Component {
                             
                             console.log("Uploading... " + image.name);
                             await RESTService.userProfilePicUpload(data);
-                            
+                                
                             console.log("Done Uploading... " + image.name);
-
+                            this.setState({loading: false});
                             // console.log(fd);
 
                             // const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
