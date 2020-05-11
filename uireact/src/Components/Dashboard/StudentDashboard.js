@@ -65,7 +65,7 @@ class StudentDashboardComponent extends Component{
                         </Jumbotron>
                         </td>
                         <td style={{ padding: '70px' , paddingTop: '20px', paddingBottom: '20px'}}>
-                        <Jumbotron style={{ width: '26rem' , height: '20rem' }}>
+                        <Jumbotron style={{ width: '30rem' , height: '20rem' }}>
                             <h1>Reports</h1>
                             <p>Reports</p>
                             <br/>

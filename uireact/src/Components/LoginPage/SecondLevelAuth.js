@@ -44,21 +44,15 @@ class SecondLevelAuth extends Component {
 
     capture = async() => {
         this.setState({loading:true});
-        console.log('inside capture');
         const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        console.log("idToken.idToken.claims");
-        console.log(idToken);
+        
         let data={}
         data.email= idToken.idToken.claims.email;
-        console.log(data);
         let userDetails= await RESTService.octaUserData(data)
-        console.log(userDetails)
-        console.log(userDetails.data.result.length)
 
         let imageNameStored=userDetails.data.result[0].userImage;
         //this.setState({imageName:imageNameStored});
         this.state.imageName=imageNameStored;
-        console.log('imageSrc',this.state.imageName)
 
         const imageSrc = this.webcam.getScreenshot();
         
@@ -71,19 +65,13 @@ class SecondLevelAuth extends Component {
           fd.append('file', image)
 
           var a=image.toString('Base64');
-          console.log(a);
+          
           this.state.renderWebcam=false;
           let video={}
           video.width= 1;
           video.height= 1;
           video.facingMode= "user";
           this.setState({videoConstraints:video});
-
-            var x=imageSrc.replace("data:image/jpeg;base64,","");
-          
-
-            // public static final String AWS_CLOUD_DRIVETIME_BUCKET = "cloud-project-drivetime";
-            // public static final String AWS_USER_DB_BUCKET = "driving-user-db";
 
             const data = new FormData()
             data.append('file', image, image.name);
@@ -100,15 +88,12 @@ class SecondLevelAuth extends Component {
 
          await  fetch(API_URL, requestOptions) 
           .then(
-            //   res => (console.log(res.json()))
             async (res) => {
-            // console.log(Promise.resolve(res.json()));
            let value= await Promise.resolve(res.json()).then(function(value) {
-                console.log(value.file1); // "Success"
-                console.log(value.file2); // "Success"
-                console.log(value.similarity); // "Success"
+                console.log(value.file1); 
+                console.log(value.file2); 
+                console.log(value.similarity);
                 if(value.file2 && value.similarity && value.similarity > 98 ){
-                    console.log('inside promise',value.file2)
                     return value.file1
                 }else{
                     
@@ -120,10 +105,6 @@ class SecondLevelAuth extends Component {
         this.setState({showcam:false});
         this.setState({loading:false});
         
-
-        console.log('outside promise returned value' ,value);
-        console.log('user stored value value' ,this.state.imageName);
-        console.log((value===this.state.imageName))
         if(value === 'error'){
             message.error('Authetication failed');
         }else{
@@ -147,39 +128,16 @@ class SecondLevelAuth extends Component {
         
         });
     
-        
-    
-      //http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces  
-          
-      //    // Let's upload the file
-      //    // Don't set contentType manually → https://github.com/github/fetch/issues/505#issuecomment-293064470
-      //   //  const API_URL = 'https://example.com/add_image'
-      //   //  fetch(API_URL, {method: 'POST', body: fd)
-      //   //  .then(res => res.json()) 
-      //   //  .then(res => console.log(res))
 
       };
 
       captureDummy = async ()=>{
         const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        console.log("idToken.idToken.claims");
-        console.log(idToken);
         let data={}
         data.email= idToken.idToken.claims.email;
         console.log(data);
         let userDetails= await RESTService.octaUserData(data)
         this.props.authService.login('/home');
-
-        // let usertypeL=userDetails.data.result[0].usertype;
-        //             if( usertypeL === 'student'){
-        //             history.push('/signUp');
-        //         }else if( usertypeL=== 'instructor'){
-        //             history.push('/home/instructor');
-        //         }else if( usertypeL=== 'vendor'){
-        //             history.push('/home/vedor');
-        //         }else{
-        //             history.push('/home');
-        //         }
 
       }
     
@@ -208,7 +166,6 @@ class SecondLevelAuth extends Component {
 
 
     checkAuthentication = async () => {
-      console.log('login status'+this.props.authState.isAuthenticated)
       if (this.props.authState.isAuthenticated) {
         this.setState({ authenticated : this.props.authState.isAuthenticated});
       }
