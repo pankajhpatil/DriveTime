@@ -49,10 +49,10 @@ mongoose.connect(db,{ useNewUrlParser: true})
 
 app.use(cors(
     {
-        origin: ['http://localhost:3000','https://localhost:3000','https://www.geethupadachery.com'],
-        // origin : /geethupadachery\.com$/,
-        methods : ['GET', 'PUT', 'POST','DELETE'],
-        // allowedHeaders : ['Content-Type', 'Authorization'],
+        // origin: ['http://localhost:3000','https://localhost:3000','https://www.geethupadachery.com/'],
+        origin : [/geethupadachery\.com$/,],
+        methods : ['GET', 'PUT', 'POST','DELETE','HEAD'],
+        allowedHeaders : ['Content-Type', 'Authorization'],
         credentials: true
     }
 ));
