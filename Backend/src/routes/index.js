@@ -240,6 +240,35 @@ app.post('/login/OAuth', function (req, res) {
 });
 
 
+//getfeedbackForstudent
+app.post('/login/getfeedbackForstudent', async function (req, res) {
+
+console.log('Inside Feedback');
+    let username=req.body.email;
+    if(username ==='jigneshdinesh.madhani@sjsu.edu'){
+        username='admin' 
+    }
+    //check if user data is available
+    var sqlQuery = "SELECT * FROM `rentITDB`.`StudentFeedback` c where  c.username='" + req.session.username + "' ";
+
+    //check if user data is available
+    // var sqlQuery = "select * from authDB.user_data d WHERE `username` = '" + req.body.email + "'";
+
+    mysql.fetchData(function (err, results) {
+        if (err) {
+            throw err;
+        }
+        else {
+
+            console.log('results')
+            console.log(results)
+            // User Present
+            res.status(200).send({result: results}); 
+        }
+    }, sqlQuery);
+    console.log(req.session)
+});
+
 
 app.post('/login/octa', async function (req, res) {
 

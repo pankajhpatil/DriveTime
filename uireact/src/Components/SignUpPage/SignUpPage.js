@@ -130,13 +130,21 @@ class SignUpPage extends Component {
                             fd.append('file', image)
                             this.state.renderWebcam=false;
 
-                            console.log(fd);
+                            const data = new FormData()
+                            data.append('file', image, image.name);
+                            
+                            console.log("Uploading... " + image.name);
+                            await RESTService.userProfilePicUpload(data);
+                            
+                            console.log("Done Uploading... " + image.name);
 
-                            const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+                            // console.log(fd);
 
-                            await  fetch(API_URL, {method: 'POST', body: fd}) 
-                            .then(res => (console.log(res.json()))) 
-                            .then(res => (console.log(res)));
+                            // const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
+
+                            // await  fetch(API_URL, {method: 'POST', body: fd}) 
+                            // .then(res => (console.log(res.json()))) 
+                            // .then(res => (console.log(res)));
 
                             });
                             message.success('Registered Successfully');

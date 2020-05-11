@@ -36,7 +36,9 @@ export const RESTService = {
     uploadImage,
     compareFaces,
     registerOkta,
-    octaUserData
+    octaUserData,
+    getfeedbackForstudent,
+    uploadToRekognitionDB
 };
 
 
@@ -93,6 +95,18 @@ function upload(data) {
         })
 
 
+}
+
+
+function uploadToRekognitionDB(data){
+    let url = api + '/upload/compareUpload';
+    return axios.post(url, data)
+}
+
+
+function userProfilePicUpload(data){
+    let url = api + '/upload/userProfileUpload';
+    return axios.post(url, data)
 }
 
 function getTableData() {
@@ -194,6 +208,12 @@ function payment(data) {
     let url = api + '/payment/checkout';
     return axios.post(url, data);
 }
+
+function getfeedbackForstudent(data) {
+    let url = api + '/login/getfeedbackForstudent';
+    return axios.post(url, data);
+}
+
 function uploadImage(data) {
     let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
     return axios.post(url, data);

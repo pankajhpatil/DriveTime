@@ -28,6 +28,8 @@ class StudentDashboardComponent extends Component{
 
     resources = () => { history.push('/home/resources'); };
     startQuiz = () => { history.push('/home/quiz'); };
+    viewReports = () => { history.push('/home/reports'); };
+    
                         
     render() {
 
@@ -62,6 +64,14 @@ class StudentDashboardComponent extends Component{
                             <Button type="primary" size="large" icon="book" onClick={this.startQuiz}>Explore Resources</Button>
                         </Jumbotron>
                         </td>
+                        <td style={{ padding: '70px' , paddingTop: '20px', paddingBottom: '20px'}}>
+                        <Jumbotron style={{ width: '26rem' , height: '20rem' }}>
+                            <h1>Reports</h1>
+                            <p>Reports</p>
+                            <br/>
+                            <Button type="primary" size="large" icon="book" onClick={this.viewReports}>Explore Resources</Button>
+                        </Jumbotron>
+                        </td>   
                     </tr>    
                 </table>
             </div>

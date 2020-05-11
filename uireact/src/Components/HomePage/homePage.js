@@ -29,6 +29,9 @@ import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
 import QuizComponent from "../Quiz/Quiz";
 import IFeedback from '../Instructor/iFeedback';
+import ReportsComponent from '../Instructor/reports';
+
+
 
 
 const {Text} = Typography;
@@ -46,7 +49,8 @@ class homePage extends Component {
         isAdmin: false,
         showName: '',
         currentUserName: '',
-        currentUserEmail: ''
+        currentUserEmail: '',
+        reportdata : []
     };
 
 
@@ -88,69 +92,35 @@ class homePage extends Component {
             })
         }
         
-        // const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        // console.log("idToken.idToken.claims");
-        // console.log(idToken);
-        // let data={}
-        // data.email= idToken.idToken.claims.email;
-        // console.log(data);
-        // RESTService.octaUserData(data)
-        
-
-        // let response = await RESTService.checkLogin();
-        // console.log('Check logged in user',response)
-        // if (response.data.loggedInUser.username === "admin") {
-
-        //     this.setState({
-        //         isAdmin: true,
-        //         showName: 'Admin',
-        //     })
-        // }
-        // else {
-        //     this.setState({
-        //         isAdmin: false,
-        //         showName: response.data.loggedInUser.firstName + ' ' + response.data.loggedInUser.lastName,
-        //         // showName: response.data.loggedInUser.username
-        //     })
-        // }
-
-        //const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        // console.log("idToken");
-        // console.log(idToken);
-        // this.setState({
-        // currentUserEmail: idToken.idToken.claims.email,
-        // currentUserName: idToken.idToken.claims.name
-        // });
-        // console.log(response.data.loggedInUser.username);
-        // this.setState({
-        //     isAdmin: false,
-        //     showName: 'Admin',
-        // })
-
-        // this.setState({
-        //     isStudent: false,
-        //     isInstructor : true,
-        //     showName: 'Manish Lokhande'
-        // })
-
-        
-        // if(response.data.loggedInUser.usertype === "student"){
-        //     this.setState({
-        //         isStudent: true,
-        //         isInstructor : false
-        //     })
-        // }
-        // else if(response.data.loggedInUser.usertype === "instructor"){
-        //     this.setState({
-        //         isStudent: false,
-        //         isInstructor : true
-        //     })
-        // }else{
-        //     this.setState({
-        //         isStudent: false,
-        //         isInstructor : false
-        //     })
-        // }
+        //For feedback
+        let response1=await RESTService.getfeedbackForstudent();
+        console.log('Feedback response')
+        console.log(response1)
+        let feedbackData=response1.data.result;
+        let tdata=[];
+        if(feedbackData){
+        for(var keys in feedbackData){
+            let tempData = feedbackData[keys];
+            let fdata={};
+            fdata.label='Session '+tempData.session;
+            fdata.data=[
+            {x: 'Car Prechecks' ,y: parseInt(tempData.feedback1)},
+            {x: 'Seatbelt check',y: parseInt(tempData.feedback2)},
+            {x: 'Followed Speed limit',y: parseInt(tempData.feedback3)},
+            {x: 'Over the shoulder check',y: parseInt(tempData.feedback4)},
+            {x: 'Stop sign followed',y: parseInt(tempData.feedback5)},
+            {x: 'Used proper signals',y: parseInt(tempData.feedback6)},
+            {x: 'Pedestrian checks',y: parseInt(tempData.feedback7)},
+            {x: 'Freeway Driving',y: parseInt(tempData.feedback8)},
+            {x: 'Followed traffic signals',y: parseInt(tempData.feedback9)},
+            {x: 'Parking precision and skills',y: parseInt(tempData.feedback10)}
+        ];
+            tdata.push(fdata);
+            console.log(fdata)
+        };
+        console.log(tdata)
+        this.setState({reportdata:tdata})
+        }
 
     }
 
@@ -384,6 +354,9 @@ class homePage extends Component {
                                     />
                                     <Route exact path="/home/iFeedback"
                                            render={(props) => <div><IFeedback/></div>}
+                                    />
+                                    <Route exact path="/home/reports"
+                                           render={(props) => <div><ReportsComponent reportdata = {this.state.reportdata} /></div>}
                                     />
                                     
                                 </Router>

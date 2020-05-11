@@ -8,6 +8,7 @@ import Webcam from "react-webcam";
 import { Jumbotron} from 'react-bootstrap'; 
 import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
+import base64 from 'react-native-base64'
 
 export default withOktaAuth(
 
@@ -60,30 +61,48 @@ class SecondLevelAuth extends Component {
         console.log('imageSrc',this.state.imageName)
 
         const imageSrc = this.webcam.getScreenshot();
-
+        
         console.log(imageSrc)
         fetch(imageSrc)
         .then(res => res.blob())
         .then( async(blob) => {
           const fd = new FormData();
-          const image = new File([blob], Date.now()+".jpeg");
+          const image = new File([blob], Date.now()+".jpg");
           fd.append('file', image)
+
+          var a=image.toString('Base64');
+          console.log(a);
           this.state.renderWebcam=false;
           let video={}
           video.width= 1;
           video.height= 1;
           video.facingMode= "user";
-          this.setState({videoConstraints:video})
+          this.setState({videoConstraints:video});
 
-        const API_URL = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
-        console.log('starting API call',fd)
-         await  fetch(API_URL, {method: 'POST', body: fd}) 
+            var x=imageSrc.replace("data:image/jpeg;base64,","");
+          
+
+            // public static final String AWS_CLOUD_DRIVETIME_BUCKET = "cloud-project-drivetime";
+            // public static final String AWS_USER_DB_BUCKET = "driving-user-db";
+
+            const data = new FormData()
+            data.append('file', image, image.name);
+            
+            console.log("Uploading... " + image.name);
+           let res= await RESTService.uploadToRekognitionDB(data);
+            //await RESTService.userProfilePicUpload(data);
+            console.log("Done Uploading... " + res);    
+                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
+                const requestOptions = {
+                    method: 'POST'
+                };
+
+
+         await  fetch(API_URL, requestOptions) 
           .then(
             //   res => (console.log(res.json()))
             async (res) => {
             // console.log(Promise.resolve(res.json()));
-            
-
            let value= await Promise.resolve(res.json()).then(function(value) {
                 console.log(value.file1); // "Success"
                 console.log(value.file2); // "Success"
@@ -121,7 +140,7 @@ class SecondLevelAuth extends Component {
           }
               
               
-              );
+              ).catch(err => console.error('Caught error: ', err));
 
           
 
@@ -235,7 +254,7 @@ class SecondLevelAuth extends Component {
                         videoConstraints={this.state.videoConstraints}/>
                         </Row>
                         <Row type="flex" justify="space-around"  className="fullHeight" >
-                        <Button type="primary"  onClick={this.captureDummy} loading={this.state.loading}>
+                        <Button type="primary"  onClick={this.capture} loading={this.state.loading}>
                             Click Picture(Beta)
                         </Button>
                         <Button type="primary"  onClick={this.hidecam} loading={this.state.loading}>
