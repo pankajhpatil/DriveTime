@@ -34,7 +34,7 @@ if(feedbackData){
 for(var keys in feedbackData){
     let tempData = feedbackData[keys];
     let fdata={};
-    fdata.label='Session '+tempData.session;
+    fdata.label='Session '+tempData.sessionSlot;
     fdata.data=[
     {x: 'Car Prechecks' ,y: parseInt(tempData.feedback1)},
     {x: 'Seatbelt check',y: parseInt(tempData.feedback2)},
