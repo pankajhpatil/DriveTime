@@ -11,28 +11,23 @@
   "license": "ISC",
   "devDependencies": {
     "nodemon": "^2.0.2",
-    "serverless": "^1.67.0"
+    "serverless": "^1.70.0"
   },
   "dependencies": {
-    "@ionic-native/zoom": "^5.24.0",
     "@okta/oidc-middleware": "^4.0.1",
     "aws-serverless-express": "^3.3.8",
     "body-parser": "^1.19.0",
     "connect": "^3.7.0",
     "cookie-parser": "^1.4.5",
-    "cordova.plugin.zoom-auto-audio-and-video": "^4.4.5513-0.714",
     "cors": "^2.8.5",
     "ejs": "^3.0.2",
-    "env2": "^2.2.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "moment": "^2.24.0",
     "mongoose": "^5.9.10",
     "multer": "^1.4.2",
     "mysql": "^2.18.1",
-    "sendemail": "^4.0.0",
     "stripe": "^8.44.0",
-    "uuid": "^7.0.3",
-    "zoomus": "^0.1.4"
+    "uuid": "^7.0.3"
   }
 }

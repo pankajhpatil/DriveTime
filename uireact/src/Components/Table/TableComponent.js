@@ -6,36 +6,13 @@ import { RESTService } from '../Api/api.js'
 
 class TableComponent extends Component {
 
-    //`userid`, `file_name`,`filedesc`, `fileuploadtime`, `filemodifieddate`, `filecreatedate`, `fileurl`
-
-    // onChange = (pagination, filters, sorter, extra) => {
-    //     console.log('params', pagination, filters, sorter, extra);
-    // }
-
     state = {tableData: []};
-    //
-    // showModal = () => {
-    //     this.setState({
-    //         visible: true,
-    //     });
-    // };
-    //
-
 
     async componentDidMount() {
 
-
         let response = await RESTService.getTableData();
-
-        console.log("response");
-        console.log(response.data.result);
-
         let data = response.data.result;
-
-
         this.setState({tableData: data});
-
-
     }
 
     deleteFile = async (fileName) => {
@@ -48,14 +25,7 @@ class TableComponent extends Component {
         this.setState({tableData: response.data.result});
     };
 
-
-    // // confirm = () => {
-    // //
-    // // }
-
     render() {
-
-
         const columns = [
             {
                 title: 'First Name',
@@ -96,9 +66,7 @@ class TableComponent extends Component {
                 render: (text, record) => <div><a href={text} target="_blank">Download</a> <Divider type="vertical"/> <a
                     onClick={() => this.deleteFile(record.file_name)}>Delete</a></div>,
             },
-
         ];
-
 
         return (
             <div className="table">
@@ -107,6 +75,5 @@ class TableComponent extends Component {
         );
     }
 }
-
 
 export default TableComponent;

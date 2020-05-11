@@ -7,32 +7,13 @@ import PopoverComponent from './PopoverComponent';
 
 
 class ISchedule extends Component {
-  // state = {
-  //   visible: false,
-  // };
-
-  // hide = () => {
-  //   this.setState({
-  //     visible: false,
-  //   });
-  // };
-
-  // handleVisibleChange = visible => {
-  //   this.setState({ visible });
-  // };
- 
-
+  
     state = {tableData: []};
-
 
     async componentDidMount() {
 
-
         let response = await RESTService.getinstructorSchedule();
-        //console.log(response.data.result);
         this.setState({tableData: response.data.result});
-
-
     }
 
     deleteISchedule = async (sdate) => {
@@ -51,9 +32,6 @@ class ISchedule extends Component {
       this.setState({tableData: response.data.result});
 
   };
-//iAppointment
-
-
 
     render() {
 
@@ -64,11 +42,11 @@ class ISchedule extends Component {
             },
             {
                 title: '(8am-10am)',
-                dataIndex: 'slot0810',
+                dataIndex : 'slot0810',
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot0810'/>
                     ))
                 }
               </div>           
@@ -79,7 +57,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot1012'/>
                     ))
                 }
               </div>
@@ -90,7 +68,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot1214'/>
                     ))
                 }
               </div>
@@ -101,7 +79,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot1416'/>
                     ))
                 }
               </div>
@@ -112,7 +90,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot1618'/>
                     ))
                 }
               </div>
@@ -123,7 +101,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot1820'/>
                     ))
                 }
               </div>
@@ -134,7 +112,7 @@ class ISchedule extends Component {
                 render: (text) => <div>
                 { (text==="Y" ? <Icon type="check" style={{color: '#3ebd04' }} />
                   :(text==="N" ?  <Icon type="dash" />:
-                    <PopoverComponent data={text}/>
+                    <PopoverComponent data={text} slot='slot2022'/>
                     ))
                 }
               </div>

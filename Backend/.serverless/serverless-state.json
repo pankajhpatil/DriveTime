@@ -208,7 +208,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z/general-services.zip"
+                "S3Key": "serverless/general-services/dev/1589186352699-2020-05-11T08:39:12.699Z/general-services.zip"
               },
               "FunctionName": "general-services-dev-api",
               "Handler": "s_api.handler",
@@ -227,14 +227,14 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo": {
+          "ApiLambdaVersionzrPv0xyRxGNb1D6epJDQcUV7gdVEvZAOpBcBfYSFU": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "BNj2Pl9TO1m9u4CIZ8RKPr+msGVQxl8nkKkbqyIqPUc="
+              "CodeSha256": "uKljUcPifhkRv+xzhM/dMCyHm2Na4yIf5fZLDD/ENKc="
             }
           },
           "ApiGatewayRestApi": {
@@ -353,7 +353,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1587876281014": {
+          "ApiGatewayDeployment1589186327298": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -512,7 +512,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z/custom-resources.zip"
+                "S3Key": "serverless/general-services/dev/1589186352699-2020-05-11T08:39:12.699Z/custom-resources.zip"
               },
               "FunctionName": "general-services-dev-custom-resource-apigw-cw-role",
               "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -568,7 +568,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo"
+              "Ref": "ApiLambdaVersionzrPv0xyRxGNb1D6epJDQcUV7gdVEvZAOpBcBfYSFU"
             }
           },
           "ServiceEndpoint": {
@@ -666,9 +666,6 @@
       "logs": {
         "restApi": {
           "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourceId\":\"$context.resourceId\",\"resourcePath\":\"$context.resourcePath\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"status\":\"$context.status\",\"authLatency\":\"$context.authorizer.integrationLatency\",\"integrationLatency\":\"$context.integrationLatency\",\"integrationStatus\":\"$context.integrationStatus\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_ACCESS_LOG\",\"version\":\"1.0.0\"}"
-        },
-        "httpApi": {
-          "format": "{\"requestTime\":\"$context.requestTime\",\"requestId\":\"$context.requestId\",\"apiId\":\"$context.apiId\",\"resourcePath\":\"$context.routeKey\",\"path\":\"$context.path\",\"httpMethod\":\"$context.httpMethod\",\"stage\":\"$context.stage\",\"status\":\"$context.status\",\"integrationStatus\":\"$context.integrationStatus\",\"integrationLatency\":\"$context.integrationLatency\",\"responseLatency\":\"$context.responseLatency\",\"responseLength\":\"$context.responseLength\",\"errorMessage\":\"$context.error.message\",\"format\":\"SLS_HTTP_API_LOG\",\"version\":\"1.0.0\"}"
         }
       },
       "vpc": {}
@@ -691,7 +688,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersionOwWGyHJ92GT1lGV06s0FUsZbfIQiM9639Gfdc6BoHo"
+        "versionLogicalId": "ApiLambdaVersionzrPv0xyRxGNb1D6epJDQcUV7gdVEvZAOpBcBfYSFU"
       }
     },
     "serviceFilename": "serverless.yml",
@@ -705,7 +702,7 @@
     "artifact": "/Users/manish01/Documents/Sem2/282/GroupProject/DriveTime/Backend/.serverless/general-services.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/general-services/dev/1587876296281-2020-04-26T04:44:56.281Z",
+    "artifactDirectoryName": "serverless/general-services/dev/1589186352699-2020-05-11T08:39:12.699Z",
     "artifact": "general-services.zip"
   }
 }

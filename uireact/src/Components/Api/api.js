@@ -4,9 +4,7 @@ import { message } from "antd/lib/index";
 // const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';
  const api = process.env.SERVER_URL || 'http://localhost:3001';
 
-
 axios.defaults.withCredentials = true;
-
 
 export const RESTService = {
     login,
@@ -37,8 +35,10 @@ export const RESTService = {
     compareFaces,
     registerOkta,
     octaUserData,
+    addFeedback,
     getfeedbackForstudent,
-    uploadToRekognitionDB
+    uploadToRekognitionDB,
+    userProfilePicUpload
 };
 
 
@@ -93,7 +93,6 @@ function upload(data) {
             console.log(err);
             message.error("Cannot Upload Now!")
         })
-
 
 }
 
@@ -276,3 +275,8 @@ async function registerOkta(data){
                 }
           })});
 })}
+
+function addFeedback(data) {
+    let url = api + '/instructor/addFeedback';
+    return axios.post(url, data);
+}

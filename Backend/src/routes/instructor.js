@@ -141,4 +141,25 @@ instructorschedule.deleteOne({ iusername : name ,sdate:deletiondate },(err, data
 });
 });
 
+
+app.post('/addFeedback', function (req, res, next) {
+
+    var name=req.session.username;
+
+    var query = "INSERT INTO rentITDB.StudentFeedback  ( username, sessionSlot, instructorName, feedback1, feedback2, feedback3, feedback4, feedback5, feedback6, feedback7, feedback8, feedback9, feedback10) VALUES ('"+req.body.username+"', '"+req.body.session+"', '"+name+"', "+req.body.feedback1+", "+req.body.feedback2+", "+req.body.feedback3+", "+req.body.feedback4+", "+req.body.feedback5+", "+req.body.feedback6+", "+req.body.feedback7+", "+req.body.feedback8+", "+req.body.feedback9+", "+req.body.feedback10+")";
+    // console.log(query);
+    mysql.fetchData(function (err, results) {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.statusMessage = "Feedback Added";
+            res.status(200).send({result: results});
+
+        }
+    }, query);
+})
+
+
+
 module.exports = app;

@@ -30,11 +30,11 @@ class SecondLevelAuth extends Component {
       async componentDidMount() {
 
         const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
-        console.log("idToken.idToken.claims");
-        console.log(idToken);
+        // console.log("idToken.idToken.claims");
+        // console.log(idToken);
         let data={}
         data.email= idToken.idToken.claims.email;
-        console.log(data);
+        // console.log(data);
         let userDetails=RESTService.octaUserData(data)
         
         let imageNameStored=userDetails.data.result[0].imageName;
@@ -67,7 +67,7 @@ class SecondLevelAuth extends Component {
         .then(res => res.blob())
         .then( async(blob) => {
           const fd = new FormData();
-          const image = new File([blob], Date.now()+".jpg");
+          const image = new File([blob], Date.now()+".jpeg");
           fd.append('file', image)
 
           var a=image.toString('Base64');
@@ -92,7 +92,7 @@ class SecondLevelAuth extends Component {
            let res= await RESTService.uploadToRekognitionDB(data);
             //await RESTService.userProfilePicUpload(data);
             console.log("Done Uploading... " + res);    
-                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/uploadandcomparefaces'+'?filename='+image.name;
+                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
                 const requestOptions = {
                     method: 'POST'
                 };
