@@ -92,7 +92,7 @@ class SecondLevelAuth extends Component {
            let res= await RESTService.uploadToRekognitionDB(data);
             //await RESTService.userProfilePicUpload(data);
             console.log("Done Uploading... " + res);    
-                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/uploadandcomparefaces'+'?filename='+image.name;
+                const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
                 const requestOptions = {
                     method: 'POST'
                 };
