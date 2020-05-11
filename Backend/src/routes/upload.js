@@ -225,6 +225,7 @@ app.post("/compareUpload", upload.single("file"), async function (req, res) {
             res.status(500).json({error: true, Message: err});
         } else {
             console.log('Upload sucessful')
+            console.log(data);
             res.status(200).json({error: false, Message: "Upload successfule"});
         }
     });
@@ -257,7 +258,9 @@ app.post("/userProfileUpload", upload.single("file"), async function (req, res) 
             console.log(err)
             res.status(500).json({error: true, Message: err});
         } else {
-            res.status(500).json({error: false, Message: "Upload successfule"});
+            console.log("Uploading is working good")
+            console.log(data);
+            res.status(200).json({error: false, Message: "Upload successfule"});
         }
     });
 });
