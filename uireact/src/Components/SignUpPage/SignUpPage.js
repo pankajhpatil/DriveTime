@@ -84,7 +84,7 @@ class SignUpPage extends Component {
                     message.error('Password did not match!');
                 }
                 else{
-
+                    this.state.imageName=values.email+".jpeg";
                     let data = {};
                     data.username = values.email;
                     data.password = values.password;
@@ -93,7 +93,8 @@ class SignUpPage extends Component {
                     data.email = values.email;
                     data.phone = values.phone;
                     data.usertype= values.usertype;
-
+                    data.userImage= this.state.imageName;
+                    
                     try {
                         await RESTService.register(data);
 

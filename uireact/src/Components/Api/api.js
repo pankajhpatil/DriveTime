@@ -140,8 +140,10 @@ function handleSuccess(response) {
 }
 
 async function handleError(error) {
+    console.log(error)
     if (error.response) {
         // return Promise.reject(error.response);
+        console.log(error.response)
         return Promise.resolve(error.response);
     }
 }
@@ -218,8 +220,31 @@ function uploadImage(data) {
     let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
     return axios.post(url, data);
 }
-function compareFaces(data) {
-    let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadandcomparefaces';
+    async function compareFaces(data) {
+    let url = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+data.name;
+    var config = {
+        headers: { 'Content-Type': 'application/json',
+                    'Accept' : 'application/json' 
+                }
+      };
+
+      return await axios.post(url, data)
+      .then(res => { 
+          console.log("Sucess done for response");
+          console.log(res);
+          return res;
+       })
+      .catch(err => { handleError(err)
+          .then(res => {
+            console.log("Inside error");
+            console.log(res);
+                Promise.resolve(res).then(function(value) {
+                console.log(value);
+          })});
+})
+
+
+
     return axios.post(url, data);
 }
 async function registerOkta(data){

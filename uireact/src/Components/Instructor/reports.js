@@ -3,21 +3,22 @@ import React, { Component } from 'react';
 import { Chart } from 'react-charts'
 import { connect } from "react-redux";
 import {
-    Card, Form, Input, Button, Row, Col, Spin, message
+    Card, Form, Input, Button, Row, Col, Spin, message,Select
 } from 'antd';
+
 import { Jumbotron} from 'react-bootstrap'; 
 import { RESTService } from "../Api/api.js";
 
-
+const { Option } = Select;
 
 class ReportsComponent extends Component {
 
     state = {
         tableData: [],
-        reportdata:this.props.reportData,
-        renderReport:false
+        reportdata: [],
+        renderReport:false,
+        charttype: 'bar'
     };
-
 
     async componentDidMount() {
         
@@ -54,6 +55,7 @@ this.setState({reportdata:tdata})
 }
 
 
+
        this.setState({renderReport:true})
         // {
         //     label: 'Series 1',
@@ -74,44 +76,16 @@ this.setState({reportdata:tdata})
    
 
       
-
+    setChartType = (e) => {
+        console.log('event')
+        console.log(e)
+        this.setState({charttype:e})
+      }
 
 
     render() {
         let data= this.state.reportdata;
-
-    //    let data =[{
-    //         label: 'Series 1',
-    //         data: [
-    //         {x: 'Car Prechecks' ,y: 10},
-    //         {x: 'Seatbelt check',y: 6},
-    //         {x: 'Followed Speed limit',y:8},
-    //         {x: 'Over the shoulder check',y:6},
-    //         {x: 'Stop sign followed',y: 7},
-    //         {x: 'Used proper signals',y: 7},
-    //         {x: 'Pedestrian checks',y: 7},
-    //         {x: 'Freeway Driving',y: 8},
-    //         {x: 'Followed traffic signals',y: 6},
-    //         {x: 'Parking precision and skills',y:5}
-            
-    //         ]
-    //       },
-    //       {
-    //         label: 'Series 2',
-    //         data: [
-    //     {x: 'Car Prechecks' ,y: 10},
-    //     {x: 'Seatbelt check',y: 6},
-    //     {x: 'Followed Speed limit',y:8},
-    //     {x: 'Over the shoulder check',y:6},
-    //     {x: 'Stop sign followed',y: 7},
-    //     {x: 'Used proper signals',y: 7},
-    //     {x: 'Pedestrian checks',y: 7},
-    //     {x: 'Freeway Driving',y: 8},
-    //     {x: 'Followed traffic signals',y: 6},
-    //     {x: 'Parking precision and skills',y:5}
-    //     ]
-    //     }
-    // ]
+        const {getFieldDecorator} = this.props.form;
 
     console.log(data);
           let axes= [
@@ -122,15 +96,28 @@ this.setState({reportdata:tdata})
           ];
 
           let series = {
-            type: 'bar'
+            type: this.state.charttype
           };
 
         return (
+
+            
+            
             <div className="cards" style={{ display: 'flex', alignItems:'center', height: '20%' }}>
+
+            <Select defaultValue="bar" style={{ width: 120 }} onChange={this.setChartType}>
+                <Option value="bar">Bar Chart</Option>
+                <Option value="line">Line Chart</Option>
+                <Option value="bubble">Bubble Chart</Option>
+                <Option value="area">Area Chart</Option>
+            </Select>
                 <table>
+                        
                     <tr>
                     <td style={{ padding: '70px' , paddingTop: '20px', paddingBottom: '20px'}}>
                         <Jumbotron style={{width: '55rem' , height: '40rem' }}>
+                            <br/>
+                            <br/>
                             <br/>
                             {this.state.renderReport ?
                             <Chart data={data} series={series} axes={axes} tooltip /> : null }
