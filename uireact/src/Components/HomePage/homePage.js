@@ -28,7 +28,7 @@ import SuccessComponent from '../Enroll/Success';
 import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
 import QuizComponent from "../Quiz/Quiz";
-import IFeedback from '../Instructor/iFeedback';
+import Feedback from '../Instructor/Feedback';
 
 
 const {Text} = Typography;
@@ -179,7 +179,7 @@ class homePage extends Component {
             history.push('/home/iSchedule');
         }
         else if (e.key === '6') {
-            history.push('/home/iFeedback');
+            history.push('/home/Feedback');
         }
     };
 
@@ -242,7 +242,7 @@ class homePage extends Component {
             case '/home/appointments':
                     selectedKey = '5';
                     break;
-            case '/home/iFeedback':
+            case '/home/Feedback':
                 selectedKey = '6';
                 break;      
 
@@ -382,8 +382,8 @@ class homePage extends Component {
                                     <Route exact path="/home/resources"
                                            render={(props) => <div><ResourcesComponent/></div>}
                                     />
-                                    <Route exact path="/home/iFeedback"
-                                           render={(props) => <div><IFeedback/></div>}
+                                    <Route exact path="/home/Feedback"
+                                           render={(props) => <div><Feedback/></div>}
                                     />
                                     
                                 </Router>

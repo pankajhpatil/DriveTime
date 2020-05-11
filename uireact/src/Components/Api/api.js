@@ -36,7 +36,8 @@ export const RESTService = {
     uploadImage,
     compareFaces,
     registerOkta,
-    octaUserData
+    octaUserData,
+    addFeedback
 };
 
 
@@ -91,7 +92,6 @@ function upload(data) {
             console.log(err);
             message.error("Cannot Upload Now!")
         })
-
 
 }
 
@@ -231,3 +231,8 @@ async function registerOkta(data){
                 }
           })});
 })}
+
+function addFeedback(data) {
+    let url = api + '/instructor/addFeedback';
+    return axios.post(url, data);
+}
