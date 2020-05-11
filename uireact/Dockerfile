@@ -12,6 +12,7 @@ COPY package.json /usr/src/frontend
 # RUN npm install --save core-js@^3
 
 RUN npm install
+RUN npm i webpack@4.42.0
 
 #Copy everything from here to container
 COPY . .
