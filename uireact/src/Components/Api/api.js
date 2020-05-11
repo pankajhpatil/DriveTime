@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { message } from "antd/lib/index";
 
-// const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';
- const api = process.env.SERVER_URL || 'http://localhost:3001';
-
+const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';
+//  const api = process.env.SERVER_URL || 'http://localhost:3001';
 
 axios.defaults.withCredentials = true;
-
 
 export const RESTService = {
     login,
@@ -37,7 +35,10 @@ export const RESTService = {
     compareFaces,
     registerOkta,
     octaUserData,
-    addFeedback
+    addFeedback,
+    getfeedbackForstudent,
+    uploadToRekognitionDB,
+    userProfilePicUpload
 };
 
 
@@ -93,6 +94,18 @@ function upload(data) {
             message.error("Cannot Upload Now!")
         })
 
+}
+
+
+function uploadToRekognitionDB(data){
+    let url = api + '/upload/compareUpload';
+    return axios.post(url, data)
+}
+
+
+function userProfilePicUpload(data){
+    let url = api + '/upload/userProfileUpload';
+    return axios.post(url, data)
 }
 
 function getTableData() {
@@ -194,6 +207,12 @@ function payment(data) {
     let url = api + '/payment/checkout';
     return axios.post(url, data);
 }
+
+function getfeedbackForstudent(data) {
+    let url = api + '/login/getfeedbackForstudent';
+    return axios.post(url, data);
+}
+
 function uploadImage(data) {
     let url = 'http://ec2-54-67-76-112.us-west-1.compute.amazonaws.com:8080/api/uploadimagetouserdb';
     return axios.post(url, data);

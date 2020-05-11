@@ -196,4 +196,70 @@ app.post('/deleteuser', function (req, res, next) {
     }, sqlQuery);
 });
 
+
+app.post("/compareUpload", upload.single("file"), async function (req, res) {
+    //File Upload started
+    const file = req.file;
+    console.log('request file')
+    console.log(file);
+    let s3bucket = new AWS.S3({
+        accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+        region: config.AWS_REGION_1
+    });
+
+    //Location of store for file upload
+    var params = {
+        Bucket: config.AWS_BUCKET_NAME_1,
+        Key: file.originalname,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+        ACL: "public-read"
+    };
+
+
+    await s3bucket.upload(params, function (err, data) {
+        var cnt = "";
+        if (err) {
+            console.log(err)
+            res.status(500).json({error: true, Message: err});
+        } else {
+            console.log('Upload sucessful')
+            res.status(200).json({error: false, Message: "Upload successfule"});
+        }
+    });
+});
+
+app.post("/userProfileUpload", upload.single("file"), async function (req, res) {
+    //File Upload started
+    const file = req.file;
+    console.log('request file')
+    console.log(file);
+    let s3bucket = new AWS.S3({
+        accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+        region: config.AWS_REGION_1
+    });
+
+    //Location of store for file upload
+    var params = {
+        Bucket: config.AWS_BUCKET_NAME_2,
+        Key: file.originalname,
+        Body: file.buffer,
+        ContentType: file.mimetype,
+        ACL: "public-read"
+    };
+
+
+   await s3bucket.upload(params, function (err, data) {
+        var cnt = "";
+        if (err) {
+            console.log(err)
+            res.status(500).json({error: true, Message: err});
+        } else {
+            res.status(500).json({error: false, Message: "Upload successfule"});
+        }
+    });
+});
+
 module.exports = app;
