@@ -19,6 +19,7 @@ import Enrollment from "../Enroll/Enrollment";
 import IDetails from "../Instructor/iDetails";
 import ISchedule from "../Instructor/iSchedule";
 import TableComponent from "../Table/TableComponent";
+import Feedback from '../Instructor/Feedback';
 
 import { RESTService } from "../Api/api.js";
 
@@ -122,6 +123,9 @@ class homePage extends Component {
         }else if (e.key === '5') {
             history.push('/home/iSchedule');
         }
+        else if (e.key === '6') {
+            history.push('/home/Feedback');
+        }
     };
 
     logoutButton = async () => {
@@ -182,7 +186,10 @@ class homePage extends Component {
                 break;
             case '/home/appointments':
                     selectedKey = '5';
-                    break;     
+                    break;   
+            case '/home/Feedback':
+                selectedKey = '6';
+                break;   
 
             default:
                 // history.push('/home/allFiles');
@@ -319,6 +326,9 @@ class homePage extends Component {
                                     />
                                     <Route exact path="/home/reports"
                                            render={(props) => <div><ReportsComponent reportdata = {this.state.reportdata} /></div>}
+                                    />
+                                    <Route exact path="/home/Feedback"
+                                           render={(props) => <div><Feedback/></div>}
                                     />
                                     
                                 </Router>
