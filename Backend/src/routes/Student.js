@@ -39,7 +39,7 @@ app.post('/home/plans', function (req, res) {
                 let output = {};
                 output.individualData = individualData;
                 output.data = data
-                res.status(200).send({result: output});
+                res.status(200).send({result: output, statusText: "Instructors are Available"});
         
             })
             .catch(err=>console.log(err));

@@ -30,7 +30,7 @@ class EnrollmentComponent extends Component{
         console.log("Api call done for instructors");
         console.log(response);
         
-        if(status === 'Instructors are Available' && response.data.result.data.length >= data.planNo){
+        if(response.data.statusText === 'Instructors are Available' && response.data.result.data.length >= data.planNo){
             message.success('Select the available Instructors!');
             this.setState({
                 firstPage : false,
