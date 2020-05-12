@@ -9,6 +9,11 @@
       "variableSyntax": "\\${([^{}]+?)}",
       "name": "aws",
       "runtime": "nodejs12.x",
+      "apiGateway": {
+        "binaryMediaTypes": [
+          "*/*"
+        ]
+      },
       "region": "us-east-2",
       "credentials": {
         "accessKeyId": "AKIAJZG6URPB6QEAUHNQ",
@@ -208,7 +213,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1589206164539-2020-05-11T14:09:24.539Z/general-services.zip"
+                "S3Key": "serverless/general-services/dev/1589243613729-2020-05-12T00:33:33.729Z/general-services.zip"
               },
               "FunctionName": "general-services-dev-api",
               "Handler": "s_api.handler",
@@ -227,20 +232,23 @@
               "IamRoleLambdaExecution"
             ]
           },
-          "ApiLambdaVersion9A2MP6C1WKqDgocgqsEsmt5T2spjNxad2yRHiBrqPg": {
+          "ApiLambdaVersionKCDDcHmQSmSJivSJAnWbIp0wIqfOY1lkHyJUxoFhkA": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "ApiLambdaFunction"
               },
-              "CodeSha256": "rradwwvlWmzcmv5C331RCZhUf3MSd+KhNuUeANIXTiM="
+              "CodeSha256": "aZiSfmj7OrQ9aaTlpZKpXq4dJtgxPXzHlR0nJY9Zqgk="
             }
           },
           "ApiGatewayRestApi": {
             "Type": "AWS::ApiGateway::RestApi",
             "Properties": {
               "Name": "dev-general-services",
+              "BinaryMediaTypes": [
+                "*/*"
+              ],
               "EndpointConfiguration": {
                 "Types": [
                   "EDGE"
@@ -353,7 +361,7 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1589206142243": {
+          "ApiGatewayDeployment1589243583897": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -512,7 +520,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/general-services/dev/1589206164539-2020-05-11T14:09:24.539Z/custom-resources.zip"
+                "S3Key": "serverless/general-services/dev/1589243613729-2020-05-12T00:33:33.729Z/custom-resources.zip"
               },
               "FunctionName": "general-services-dev-custom-resource-apigw-cw-role",
               "Handler": "apiGatewayCloudWatchRole/handler.handler",
@@ -568,7 +576,7 @@
           "ApiLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "ApiLambdaVersion9A2MP6C1WKqDgocgqsEsmt5T2spjNxad2yRHiBrqPg"
+              "Ref": "ApiLambdaVersionKCDDcHmQSmSJivSJAnWbIp0wIqfOY1lkHyJUxoFhkA"
             }
           },
           "ServiceEndpoint": {
@@ -688,7 +696,7 @@
         "timeout": 6,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "ApiLambdaVersion9A2MP6C1WKqDgocgqsEsmt5T2spjNxad2yRHiBrqPg"
+        "versionLogicalId": "ApiLambdaVersionKCDDcHmQSmSJivSJAnWbIp0wIqfOY1lkHyJUxoFhkA"
       }
     },
     "serviceFilename": "serverless.yml",
@@ -702,7 +710,7 @@
     "artifact": "/Users/manish01/Documents/Sem2/282/GroupProject/DriveTime/Backend/.serverless/general-services.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/general-services/dev/1589206164539-2020-05-11T14:09:24.539Z",
+    "artifactDirectoryName": "serverless/general-services/dev/1589243613729-2020-05-12T00:33:33.729Z",
     "artifact": "general-services.zip"
   }
 }

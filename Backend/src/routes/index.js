@@ -298,7 +298,9 @@ app.post('/login/octa', async function (req, res) {
                 req.session.lastName = results[0].lastname;
                 req.session.usertype = results[0].usertype;
                 req.session.userFullName = results[0].firstname+" "+results[0].lastname;
-                req.session.user_id = results[0].user_id;
+                // req.session.user_id = results[0].user_id;
+                console.log('Session set!');
+                console.log(req);
                 res.status(200).send({result: results}); 
             }else{
                 res.status(403).send({result: results}); 

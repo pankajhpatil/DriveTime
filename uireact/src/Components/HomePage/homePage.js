@@ -60,7 +60,7 @@ class homePage extends Component {
         const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
         let data={}
         data.email= idToken.idToken.claims.email;
-        let userDetails=RESTService.octaUserData(data)
+        let userDetails= await RESTService.octaUserData(data)
 
 
         //commented for tesing okta
@@ -97,36 +97,6 @@ class homePage extends Component {
                 isStudent: false,
                 isInstructor : false
             })
-        }
-        
-        //For feedback
-        let response1=await RESTService.getfeedbackForstudent();
-        console.log('Feedback response')
-        console.log(response1)
-        let feedbackData=response1.data.result;
-        let tdata=[];
-        if(feedbackData){
-        for(var keys in feedbackData){
-            let tempData = feedbackData[keys];
-            let fdata={};
-            fdata.label='Session '+tempData.session;
-            fdata.data=[
-            {x: 'Car Prechecks' ,y: parseInt(tempData.feedback1)},
-            {x: 'Seatbelt check',y: parseInt(tempData.feedback2)},
-            {x: 'Followed Speed limit',y: parseInt(tempData.feedback3)},
-            {x: 'Over the shoulder check',y: parseInt(tempData.feedback4)},
-            {x: 'Stop sign followed',y: parseInt(tempData.feedback5)},
-            {x: 'Used proper signals',y: parseInt(tempData.feedback6)},
-            {x: 'Pedestrian checks',y: parseInt(tempData.feedback7)},
-            {x: 'Freeway Driving',y: parseInt(tempData.feedback8)},
-            {x: 'Followed traffic signals',y: parseInt(tempData.feedback9)},
-            {x: 'Parking precision and skills',y: parseInt(tempData.feedback10)}
-        ];
-            tdata.push(fdata);
-            console.log(fdata)
-        };
-        console.log(tdata)
-        this.setState({reportdata:tdata})
         }
 
     }

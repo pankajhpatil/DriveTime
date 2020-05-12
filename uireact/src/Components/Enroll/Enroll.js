@@ -32,7 +32,6 @@ class EnrollComponent extends Component{
             data.email= idToken.idToken.claims.email;
             await RESTService.octaUserData(data)
 
-
             let response=await RESTService.checkProfile();
             let userdata=await RESTService.getloggedInUserData();
             console.log('Profile data',response)

@@ -5,6 +5,9 @@ service: general-services
 provider:
  name: aws
  runtime: nodejs12.x
+ apiGateway:
+    binaryMediaTypes:
+      - '*/*'
 #  memorySize: 128
 #  timeout: 10
 #  stage: dev
