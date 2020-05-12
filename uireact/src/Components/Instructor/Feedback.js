@@ -41,7 +41,7 @@ class Feedback extends Component{
                 // console.log('prepared data');
                 // console.log(data);
                 let resp = await RESTService.addFeedback(data);
-                if(resp.statusText === 'Feedback Added'){
+                if(resp.statusText === 'Feedback Added' || resp.data.statusText === 'Feedback Added'){
                     message.success('Your Feedback submitted!');
                 }
                 else{

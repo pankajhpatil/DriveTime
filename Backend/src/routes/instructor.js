@@ -154,7 +154,7 @@ app.post('/addFeedback', function (req, res, next) {
         }
         else {
             res.statusMessage = "Feedback Added";
-            res.status(200).send({result: results});
+            res.status(200).send({result: results , statusText: "Feedback Added"});
 
         }
     }, query);
