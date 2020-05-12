@@ -54,7 +54,7 @@ app.use(cors(
         // origin : [/geethupadachery\.com$/,'http://localhost:3000'],
         origin : /geethupadachery\.com$/,
         methods : ['GET', 'PUT', 'POST','DELETE','HEAD'],
-        allowedHeaders : ['Content-Type', 'Authorization'],
+        // allowedHeaders : ['Content-Type', 'Authorization'],
         credentials: true
     }
 ));

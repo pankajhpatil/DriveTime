@@ -24,9 +24,11 @@ class EnrollmentComponent extends Component{
     };
 
     getInstructors = async (data) => {
+        console.log("Api called for instructors");
         let response= await RESTService.getInstructorsForDates(data);
         var status = response.statusText;
-        // console.log(response);
+        console.log("Api call done for instructors");
+        console.log(response);
         
         if(status === 'Instructors are Available' && response.data.result.data.length >= data.planNo){
             message.success('Select the available Instructors!');
