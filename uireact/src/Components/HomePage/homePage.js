@@ -249,9 +249,6 @@ class homePage extends Component {
                                 {(isAdmin) &&
                                 <Menu.Item key="5"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
-                                {(isInstructor) &&
-                                <Menu.Item key="6"><span><Icon type="schedule"/><span>Feedback</span></span></Menu.Item>
-                                }
                             </Menu>
                         </Sider>
                         <Layout style={{
