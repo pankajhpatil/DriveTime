@@ -87,57 +87,7 @@ class SecondLevelAuth extends Component {
             }
             else{
                 message.error('Authetication failed');
-            }
-
-            // }
-        //     //await RESTService.userProfilePicUpload(data);
-        //     console.log("Done Uploading... " + res);    
-        //         const API_URL = 'https://9f07z2i394.execute-api.us-west-1.amazonaws.com/Dev/comparefaces'+'?filename='+image.name;
-        //         const requestOptions = {
-        //             method: 'POST'
-        //         };
-
-
-        //  await  fetch(API_URL, requestOptions) 
-        //   .then(
-        //     async (res) => {
-        //    let value= await Promise.resolve(res.json()).then(function(value) {
-        //         console.log(value.file1); 
-        //         console.log(value.file2); 
-        //         console.log(value.similarity);
-        //         if(value.file2 && value.similarity && value.similarity > 98 ){
-        //             return value.file1
-        //         }else{
-                    
-        //             return 'error'
-        //         }
-                
-
-        // }); 
-        // this.setState({showcam:false});
-        // this.setState({loading:false});
-        
-        // if(value === 'error'){
-        //     message.error('Authetication failed');
-        // }else{
-        //     if(value===this.state.imageName){
-
-        //     message.success('Authenticated successfully');
-        //     this.props.authService.login('/home');
-        // }else{
-        //     message.error('Authetication failed');
-        // }
-
-        // }
-
-        //   }
-              
-              
-        //       ).catch(err => console.error('Caught error: ', err));
-
-          
-
-        
+            }        
         });
     
 
@@ -249,7 +199,7 @@ class SecondLevelAuth extends Component {
                     <tr>
                     <td style={{ padding: '70px' , paddingTop: '20px', paddingBottom: '20px'}}>
                         <Jumbotron style={{ width: '40rem' , height: '20rem' }}>
-                            <h1>Second level authetication</h1>
+                            <h1>Second Level Authentication</h1>
                             <br/>
                             <Button type="primary"  className="login-form-button" onClick={this.showcamera}>
                             Take Picture
