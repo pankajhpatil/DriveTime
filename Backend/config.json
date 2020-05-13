@@ -9,6 +9,7 @@
   "AWS_SECRET_ACCESS_KEY_1":"OBwD9DWfiZqrzGE7vNHQxFA9mIVu8aoFHtCF/ewW",
   "AWS_REGION_1":"us-west-1",
   "AWS_BUCKET_NAME_1":"cloud-project-drivetime",
-  "AWS_BUCKET_NAME_2":"driving-user-db"
-
+  "AWS_BUCKET_NAME_2":"driving-user-db",
+  "AWS_ACCESS_KEY_ID_M":"AKIAU5IXJ2YINZ4KRMNG",
+  "AWS_SECRET_ACCESS_KEY_M":"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"
 }

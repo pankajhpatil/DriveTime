@@ -16,8 +16,8 @@ app.post("/compareMyBucket", upload.single("file"), async function (req, res) {
    
 
     let s3bucket = new AWSS3.S3({
-        accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-        secretAccessKey: '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',
+        accessKeyId: config.AWS_ACCESS_KEY_ID_M,
+        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_M,
         region: 'us-east-2'
     });
 
@@ -59,8 +59,8 @@ app.post("/compareMyBucket", upload.single("file"), async function (req, res) {
                };
         
             var rekognition = new AWS.Rekognition({
-                accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-                secretAccessKey: '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',
+                accessKeyId: config.AWS_ACCESS_KEY_ID_M,
+                secretAccessKey: config.AWS_SECRET_ACCESS_KEY_M,
                 region: 'us-east-2'
             });
             
@@ -95,8 +95,8 @@ app.post("/uploadMyBucket", upload.single("file"), async function (req, res) {
     console.log('request file')
     console.log(file);
     let s3bucket = new AWS.S3({
-        accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-        secretAccessKey: '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',
+        accessKeyId: config.AWS_ACCESS_KEY_ID_M,
+        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_M,
         region: 'us-east-2'
     });
     //Location of store for file upload
