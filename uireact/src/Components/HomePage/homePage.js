@@ -250,9 +250,9 @@ class homePage extends Component {
                                 {(isStudent) &&
                                 <Menu.Item key="4"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
-                                {isAdmin &&
+                                {/* {isAdmin &&
                                 <Menu.Item key="4"><span><Icon type="schedule"/><span>All Bookings</span></span></Menu.Item>
-                                }
+                                } */}
                                 {(isAdmin) &&
                                 <Menu.Item key="5"><span><Icon type="schedule"/><span>Bookings</span></span></Menu.Item>
                                 }
@@ -338,7 +338,7 @@ class homePage extends Component {
                                 textAlign: 'center', background: 'none',
                                 color: 'white'
                             }}>
-                                DriveUp Prototype for Enterprise software platform © San Jose State University
+                                DriveTime Prototype for Cloud Services © San Jose State University
                             </Footer>
                         </Layout>
                     </Layout>

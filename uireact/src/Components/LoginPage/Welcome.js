@@ -59,7 +59,7 @@ class WelcomePage extends Component {
                     <img src={logo} alt="DriveTime" 
                                 style={{ position:'relative' , width:'30vh',marginTop:'10px'}}/>
                         <Card className="alignCenter" bordered={false}>
-                        <Button type="primary" onClick={this.login}>Login CICD</Button>
+                        <Button type="primary" onClick={this.login}>Login</Button>
                         <br/>
                         <a href="/signUp">Register now!</a>
                         </Card>

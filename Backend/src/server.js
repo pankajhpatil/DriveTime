@@ -64,14 +64,14 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
     duration: 30 * 60 * 1000,    //setting the time for active session 10 min
-    activeDuration: 5 * 60 * 1000
-    // cookie: {
-    //     maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    activeDuration: 5 * 60 * 1000,
+    cookie: {
+        maxAge: 24 * 60 * 60 * 1000, // 24 hours
     //     signed: false,
     //     httpOnly: false,
     //     // secure: true | 'auto',
     //     // sameSite: true | 'lax' | 'strict' | 'none'
-    // }
+    }
 }))
 
 
