@@ -5,7 +5,6 @@ import { Router, Route } from 'react-router-dom';
 import {
     Layout, Menu, Button, Icon
 } from 'antd';
-import { Form, message } from "antd/lib/index";
 
 import { connect } from "react-redux";
 import StudentDashboard from "../Dashboard/StudentDashboard"
@@ -30,11 +29,7 @@ import ResourcesComponent from '../Resources/Resources';
 import { withOktaAuth } from '@okta/okta-react';
 import QuizComponent from "../Quiz/Quiz";
 import ReportsComponent from '../Instructor/reports';
-
-
 const {Text} = Typography;
-
-const SubMenu = Menu.SubMenu;
 
 
 const {Content, Sider, Footer, Header} = Layout;

@@ -117,11 +117,11 @@ app.post('/register', function (req, res, next) {
 app.get('/fetchs3data', function (req, res) {
 
     //for testing okta added this line
-    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid";
+    var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from dropboxmysql.user_files f join authDB.user_data d";// on d.user_id=f.userid";
     // var sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid WHERE (`username` = '" + req.session.username + "')";
 
     if (req.session.username === "admin") {
-        sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from authDB.user_files f join authDB.user_data d on d.user_id=f.userid";
+        sqlQuery = "select d.username,d.firstname,d.lastname,f.file_name,f.filedesc,f.fileuploadtime,DATE_FORMAT(f.filecreatedate, '%d-%m-%Y %H:%i:%s') as filecreatedate,DATE_FORMAT(f.filemodifieddate, '%d-%m-%Y %H:%i:%s') filemodifieddate,f.fileurl,d.usertype from dropboxmysql.user_files f join authDB.user_data d";// on d.user_id=f.userid";
     }
 
     mysql.fetchData(function (err, results) {
@@ -132,6 +132,7 @@ app.get('/fetchs3data', function (req, res) {
 
             console.log("Fetch Complete for UI");
             res.statusMessage = "Fetch Complete";
+            console.log(results)
             res.status(200).send({result: results});
 
         }

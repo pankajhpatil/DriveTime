@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
 import {
-    Card, Form, Input, Button, Row, Col, Spin, message
+    Button, Row, message
 } from 'antd';
-import logo from './../../icon.png';
 import { withOktaAuth } from '@okta/okta-react';
 import Webcam from "react-webcam";
 import { Jumbotron} from 'react-bootstrap'; 
-import { history } from '../../Helper/history';
 import { RESTService } from "../Api/api.js";
-import base64 from 'react-native-base64'
 
 export default withOktaAuth(
 
@@ -35,10 +32,12 @@ class SecondLevelAuth extends Component {
         let data={}
         data.email= idToken.idToken.claims.email;
         // console.log(data);
-        let userDetails=RESTService.octaUserData(data)
-        
+        let userDetails=await RESTService.octaUserData(data)
+        console.log(userDetails)
         let imageNameStored=userDetails.data.result[0].imageName;
         this.setState({imageName:imageNameStored})
+
+        this.checkAuthentication();
         
     }
 
@@ -120,22 +119,12 @@ class SecondLevelAuth extends Component {
         this.props.authService.login('/');
     };
 
-    
-    async componentDidMount() {
-
-
-    }
-
 
     checkAuthentication = async () => {
       if (this.props.authState.isAuthenticated) {
         this.setState({ authenticated : this.props.authState.isAuthenticated});
       }
     };
-
-    async componentDidMount() {
-      this.checkAuthentication();
-    }
 
     // async componentDidUpdate() {
     //   this.checkAuthentication();

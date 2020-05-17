@@ -149,7 +149,8 @@ class SignUpPage extends Component {
 
                             });
                             message.success('Registered Successfully');
-                            history.push('/login');
+                            history.push('/');
+                            
                         }
                         else{
                             this.setState({loading: false});
@@ -285,7 +286,7 @@ class SignUpPage extends Component {
                                 
 
                                 <Form.Item className="alignCenter" style={{lineHeight: 0}}>
-                                    or <a href="/login">Sign In</a>
+                                    or <a onClick={() => window.location.reload(false)} href="/">Sign In</a>
                                 </Form.Item>
                             </Form>
                         </Spin>

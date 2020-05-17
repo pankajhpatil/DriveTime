@@ -41,7 +41,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 //DB config
-const db=require('../src/routes/models/keys').MongoURI;
+const db=require('../config').MongoURI;
 
 //connect to Mongo
 mongoose.connect(db,{ useNewUrlParser: true})
@@ -50,9 +50,8 @@ mongoose.connect(db,{ useNewUrlParser: true})
 
 app.use(cors(
     {
-        // origin: ['http://localhost:3000','https://localhost:3000','https://www.geethupadachery.com/'],
-        // origin : [/geethupadachery\.com$/,'http://localhost:3000'],
-        origin : /geethupadachery\.com$/,
+        origin: ['http://localhost:3000','https://localhost:3000','https://www.geethupadachery.com/'],
+        // origin : /geethupadachery\.com$/,
         methods : ['GET', 'PUT', 'POST','DELETE','HEAD'],
         allowedHeaders : ['Content-Type', 'Authorization'],
         credentials: true

@@ -11,6 +11,8 @@ class TableComponent extends Component {
     async componentDidMount() {
 
         let response = await RESTService.getTableData();
+        console.log('Api called');
+        console.log(response);
         let data = response.data.result;
         this.setState({tableData: data});
     }

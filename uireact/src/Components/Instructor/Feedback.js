@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import {Form, Button, Rate} from 'antd';
 import { RESTService } from '../Api/api.js'
 import { message } from "antd/lib/index";
-import { history } from '../../Helper/history';
-import moment from 'moment';
 
 class Feedback extends Component{
     

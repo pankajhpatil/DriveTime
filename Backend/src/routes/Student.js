@@ -87,24 +87,31 @@ app.post('/home/confirm', function (req, res) {
 
                 if(element.slot == 'Slot1- 8am-10am' && item.slot0810 == 'Y'){
                     item.slot0810 = 'Booked_'+user;
+                    // item.slot0810 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot2- 10am-12pm' && item.slot1012 == 'Y'){
                     item.slot1012 = 'Booked_'+user;
+                    // item.slot1012 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot3- 12pm-2pm' && item.slot1214 == 'Y'){
                     item.slot1214 = 'Booked_'+user;
+                    // item.slot1214 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot4- 2pm-4pm' && item.slot1416 == 'Y'){
                     item.slot1416 = 'Booked_'+user;
+                    // item.slot1416 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot5- 4pm-6pm' && item.slot1618 == 'Y'){
                     item.slot1618 = 'Booked_'+user;
+                    // item.slot1618 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot6- 6pm-8pm' && item.slot1820 == 'Y'){
                     item.slot1820 = 'Booked_'+user;
+                    // item.slot1820 = 'Booked_'+user+'%'+element.sdate;
                 }
                 else if(element.slot == 'Slot7- 8pm-10pm' && item.slot2022 == 'Y'){
                     item.slot2022 = 'Booked_'+user;
+                    // item.slot2022 = 'Booked_'+user+'%'+element.sdate;
                 }
             
                 instructorschedule.updateOne({_id:item._id}, {

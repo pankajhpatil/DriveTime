@@ -14,6 +14,7 @@ class InstructorDashboardComponent extends Component{
         return (
             <div className="cards" style={{ display: 'flex', alignItems:'center', height: '20%' }}>
                 <table>
+                    <tbody>
                     <tr>
                         <td style={{ padding: '70px' }}>
                         <Jumbotron style={{ width: '26rem' , height: '20rem' }}>
@@ -38,6 +39,7 @@ class InstructorDashboardComponent extends Component{
                         </Jumbotron>
                         </td>
                     </tr>
+                    </tbody>
                 </table>
             </div>
         );

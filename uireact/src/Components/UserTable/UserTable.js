@@ -9,16 +9,18 @@ class UserTable extends Component {
 
     state = {tableData: []};
 
+    //to reload page
+    refreshPage = () => {
+        window.location.reload(false);
+    }
 
     async componentDidMount() {
-
+        // this.refreshPage()
 
         let response = await RESTService.getUserTableData();
-
-
+        console.log("response")
+        console.log(response)
         this.setState({tableData: response.data.result});
-
-
     }
 
     deleteUser = async (userName) => {

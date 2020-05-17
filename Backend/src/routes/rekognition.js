@@ -5,6 +5,7 @@ var AWS = require("aws-sdk");
 var AWSS3 = require("aws-sdk");
 const multer = require("multer");
 const config = require("../../config");
+
 var storage = multer.memoryStorage();
 var upload = multer({storage: storage, limits: {fileSize: 10 * 1024 * 1024}});
 
@@ -16,14 +17,14 @@ app.post("/compareMyBucket", upload.single("file"), async function (req, res) {
    
 
     let s3bucket = new AWSS3.S3({
-        accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-        secretAccessKey: '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',
-        region: 'us-east-2'
+        accessKeyId: config.AwsAccessKeyId,
+        secretAccessKey: config.AwsSecretAccessKey,
+        region: config.region
     });
 
     //Location of store for file upload
     var params = {
-        Bucket: "drivetime-user-images-compare",
+        Bucket: config.compareBucketName,
         Key: file.originalname,
         Body: file.buffer,
         ContentType: file.mimetype,
@@ -46,22 +47,22 @@ app.post("/compareMyBucket", upload.single("file"), async function (req, res) {
                 SimilarityThreshold: 90, 
                 SourceImage: {
                  S3Object: {
-                  Bucket: "drivetime-user-images", 
+                  Bucket: config.bucketName, 
                   Name: myName
                  }
                 }, 
                 TargetImage: {
                  S3Object: {
-                  Bucket: "drivetime-user-images-compare", 
+                  Bucket: config.compareBucketName, 
                   Name: file.originalname
                  }
                 }
                };
         
             var rekognition = new AWS.Rekognition({
-                accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-                secretAccessKey: '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',
-                region: 'us-east-2'
+                accessKeyId: config.AwsAccessKeyId,
+                secretAccessKey: config.AwsSecretAccessKey,
+                region: config.region
             });
             
             try{
@@ -95,13 +96,13 @@ app.post("/uploadMyBucket", upload.single("file"), async function (req, res) {
     console.log('request file')
     console.log(file);
     let s3bucket = new AWS.S3({
-        accessKeyId: 'AKIAQGVDPC2A27CGT46D',
-        secretAccessKey: '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',
-        region: 'us-east-2'
+        accessKeyId: config.AwsAccessKeyId,
+        secretAccessKey: config.AwsSecretAccessKey,
+        region: config.region
     });
     //Location of store for file upload
     var params = {
-        Bucket: "drivetime-user-images",
+        Bucket: config.bucketName,
         Key: file.originalname,
         Body: file.buffer,
         ContentType: file.mimetype,

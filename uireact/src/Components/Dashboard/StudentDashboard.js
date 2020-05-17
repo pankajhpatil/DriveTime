@@ -4,7 +4,6 @@ import { message } from "antd/lib/index";
 import { RESTService } from "../Api/api.js";
 import { history } from '../../Helper/history';
 import {Button} from 'antd';
-import QuizComponent from "../Quiz/Quiz";
 
 class StudentDashboardComponent extends Component{
 
@@ -24,6 +23,7 @@ class StudentDashboardComponent extends Component{
         return (
             <div className="cards" style={{ display: 'flex', alignItems:'center', height: '20%' }}>
                 <table>
+                    <tbody>
                     <tr>
                     <td style={{ padding: '70px' , paddingTop: '20px', paddingBottom: '20px'}}>
                         <Jumbotron style={{ width: '26rem' , height: '20rem' }}>
@@ -61,6 +61,7 @@ class StudentDashboardComponent extends Component{
                         </Jumbotron>
                         </td>   
                     </tr>    
+                    </tbody>
                 </table>
             </div>
         );

@@ -10,12 +10,12 @@ app.get('/testFetchApi', function(req, res){
 // GET list of Objects in bucket
 app.get("/", function (req, res) {
 
-    const s3FileURL = config.AWS_Uploaded_File_URL_LINK;
+    const s3FileURL = "";
 
     let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
-        region: config.AWS_REGION
+        accessKeyId: config.AwsAccessKeyId_1,
+        secretAccessKey: config.AwsSecretAccessKey_1,
+        region: config.region
     });
 
     //Location of store for file upload
@@ -39,14 +39,14 @@ app.get("/", function (req, res) {
 app.get("/:id", function (req, res) {
 
     let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
-        region: config.AWS_REGION
+        accessKeyId: config.AwsAccessKeyId_1,
+        secretAccessKey: config.AwsSecretAccessKey_1,
+        region: config.region
     });
 
     //Location of store for file upload
     var params = {
-        Bucket: config.AWS_BUCKET_NAME,
+        Bucket: config.uploadBucketName,
         Key: req.params.id,
     };
 
@@ -56,7 +56,7 @@ app.get("/:id", function (req, res) {
             res.status(500).json({error: true, Message: err});
         } else {
             console.log(data);
-            res.send({url: config.AWS_Uploaded_File_URL_LINK + req.params.id})
+            res.send({url: req.params.id})
         }
     });
 });

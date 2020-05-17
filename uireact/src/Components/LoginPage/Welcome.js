@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-    Card, Form, Input, Button, Row, Col, Spin, message
+    Card, Button, Row, Col
 } from 'antd';
 import logo from './../../icon.png';
 import { withOktaAuth } from '@okta/okta-react';
@@ -61,7 +61,7 @@ class WelcomePage extends Component {
                         <Card className="alignCenter" bordered={false}>
                         <Button type="primary" onClick={this.login}>Login</Button>
                         <br/>
-                        <a href="/signUp">Register now!</a>
+                        <a onClick={() => window.location.reload(false)} href="/signUp">Register now!</a>
                         </Card>
                     </Col>
                 </Row>

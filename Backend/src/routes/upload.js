@@ -25,17 +25,17 @@ app.post("/", upload.single("file"), function (req, res) {
     //File Upload started
     var startDate = new Date();
     const file = req.file;
-    const s3FileURL = config.AWS_Uploaded_File_URL_LINK;
+    const s3FileURL = "";
 
     let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
-        region: config.AWS_REGION
+        accessKeyId: config.AwsAccessKeyId_1,
+        secretAccessKey: config.AwsSecretAccessKey_1,
+        region: config.region
     });
 
     //Location of store for file upload
     var params = {
-        Bucket: config.AWS_BUCKET_NAME,
+        Bucket: config.uploadBucketName,
         Key: file.originalname,
         Body: file.buffer,
         ContentType: file.mimetype,
@@ -113,14 +113,14 @@ app.post("/", upload.single("file"), function (req, res) {
 app.post("/delete", function (req, res) {
 
     let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY,
-        region: config.AWS_REGION
+        accessKeyId: config.AwsAccessKeyId_1,
+        secretAccessKey: config.AwsSecretAccessKey_1,
+        region: config.region
     });
 
     //Location of store for file upload
     var params = {
-        Bucket: config.AWS_BUCKET_NAME,
+        Bucket: config.uploadBucketName,
         Key: req.body.fileName,
     };
 
@@ -130,7 +130,7 @@ app.post("/delete", function (req, res) {
             res.status(500).json({error: true, Message: err});
         } else {
 
-            var sqldeleteQuery = "    DELETE FROM `authDB`.`user_files` WHERE (`file_name` = '" + req.body.fileName + "')";
+            var sqldeleteQuery = "DELETE FROM `authDB`.`user_files` WHERE (`file_name` = '" + req.body.fileName + "')";
 
             mysql.fetchData(function (err, results) {
                 if (err) {
@@ -197,100 +197,100 @@ app.post('/deleteuser', function (req, res, next) {
 });
 
 
-app.post("/compareUpload", upload.single("file"), async function (req, res) {
-    //File Upload started
-    const file = req.file;
-    console.log('request file')
-    console.log(file);
-    let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID_1,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
-        region: config.AWS_REGION_1
-    });
+// app.post("/compareUpload", upload.single("file"), async function (req, res) {
+//     //File Upload started
+//     const file = req.file;
+//     console.log('request file')
+//     console.log(file);
+//     let s3bucket = new AWS.S3({
+//         accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+//         secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+//         region: config.AWS_REGION_1
+//     });
 
-    //Location of store for file upload
-    var params = {
-        Bucket: config.AWS_BUCKET_NAME_1,
-        Key: file.originalname,
-        Body: file.buffer,
-        ContentType: file.mimetype,
-        ACL: "public-read"
-    };
+//     //Location of store for file upload
+//     var params = {
+//         Bucket: config.AWS_BUCKET_NAME_1,
+//         Key: file.originalname,
+//         Body: file.buffer,
+//         ContentType: file.mimetype,
+//         ACL: "public-read"
+//     };
 
 
-    await s3bucket.upload(params, function (err, data) {
-        var cnt = "";
-        if (err) {
-            console.log(err)
-            res.status(500).json({error: true, Message: err});
-        } else {
-            console.log('Upload sucessful')
-            console.log(data);
-            // res.status(200).json({error: false, Message: "Upload successfule"});
-            var params1 = {
-                SimilarityThreshold: 90, 
-                SourceImage: {
-                 S3Object: {
-                  Bucket: config.AWS_BUCKET_NAME_2, 
-                  Name: "pankajhpatil21@gmail.com.jpg"
-                 }
-                }, 
-                TargetImage: {
-                 S3Object: {
-                  Bucket: config.AWS_BUCKET_NAME_1, 
-                  Name: file.originalname
-                 }
-                }
-               };
+//     await s3bucket.upload(params, function (err, data) {
+//         var cnt = "";
+//         if (err) {
+//             console.log(err)
+//             res.status(500).json({error: true, Message: err});
+//         } else {
+//             console.log('Upload sucessful')
+//             console.log(data);
+//             // res.status(200).json({error: false, Message: "Upload successfule"});
+//             var params1 = {
+//                 SimilarityThreshold: 90, 
+//                 SourceImage: {
+//                  S3Object: {
+//                   Bucket: config.AWS_BUCKET_NAME_2, 
+//                   Name: "pankajhpatil21@gmail.com.jpg"
+//                  }
+//                 }, 
+//                 TargetImage: {
+//                  S3Object: {
+//                   Bucket: config.AWS_BUCKET_NAME_1, 
+//                   Name: file.originalname
+//                  }
+//                 }
+//                };
         
-            var rekognition = new AWS.Rekognition({
-                accessKeyId: config.AWS_ACCESS_KEY_ID_1,
-                secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
-                region: 'us-east-2'
-            });
+//             var rekognition = new AWS.Rekognition({
+//                 accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+//                 secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+//                 region: 'us-east-2'
+//             });
             
             
-            rekognition.compareFaces(params1, function (err, data) {
-                if (err) console.log(err, err.stack); // an error occurred
-                else     console.log(data);           // successful response
-            });
-        }
-    });
-});
+//             rekognition.compareFaces(params1, function (err, data) {
+//                 if (err) console.log(err, err.stack); // an error occurred
+//                 else     console.log(data);           // successful response
+//             });
+//         }
+//     });
+// });
 
-app.post("/userProfileUpload", upload.single("file"), async function (req, res) {
-    //File Upload started
-    const file = req.file;
-    console.log('request file')
-    console.log(file);
-    let s3bucket = new AWS.S3({
-        accessKeyId: config.AWS_ACCESS_KEY_ID_1,
-        secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
-        region: config.AWS_REGION_1
-    });
+// app.post("/userProfileUpload", upload.single("file"), async function (req, res) {
+//     //File Upload started
+//     const file = req.file;
+//     console.log('request file')
+//     console.log(file);
+//     let s3bucket = new AWS.S3({
+//         accessKeyId: config.AWS_ACCESS_KEY_ID_1,
+//         secretAccessKey: config.AWS_SECRET_ACCESS_KEY_1,
+//         region: config.AWS_REGION_1
+//     });
 
-    //Location of store for file upload
-    var params = {
-        Bucket: config.AWS_BUCKET_NAME_2,
-        Key: file.originalname,
-        Body: file.buffer,
-        ContentType: file.mimetype,
-        ACL: "public-read"
-    };
+//     //Location of store for file upload
+//     var params = {
+//         Bucket: config.AWS_BUCKET_NAME_2,
+//         Key: file.originalname,
+//         Body: file.buffer,
+//         ContentType: file.mimetype,
+//         ACL: "public-read"
+//     };
 
 
-   await s3bucket.upload(params, function (err, data) {
-        var cnt = "";
-        if (err) {
-            console.log(err)
-            res.status(500).json({error: true, Message: err});
-        } else {
-            console.log("Uploading is working good")
-            console.log(data);
-            // res.status(200).json({error: false, Message: "Upload successfule"});
+//    await s3bucket.upload(params, function (err, data) {
+//         var cnt = "";
+//         if (err) {
+//             console.log(err)
+//             res.status(500).json({error: true, Message: err});
+//         } else {
+//             console.log("Uploading is working good")
+//             console.log(data);
+//             // res.status(200).json({error: false, Message: "Upload successfule"});
             
-        }
-    });
-});
+//         }
+//     });
+// });
 
 module.exports = app;
