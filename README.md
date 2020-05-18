@@ -1,7 +1,6 @@
 # Team Trailblazers - DriveTime 
 
-* [Demo Link](https://www.youtube.com/watch?v=OL8APwVIWNE)
-
+- [Demo Link](https://www.youtube.com/watch?v=OL8APwVIWNE)
 - University Name: [San Jose State University](http://www.sjsu.edu/)
 - Course: [CMPE-282 Sec 48 - Cloud Services](http://info.sjsu.edu/web-dbgen/catalog/courses/CMPE282.html)
 - Professor: [Andrew Bond](https://www.linkedin.com/in/ahbond/)
