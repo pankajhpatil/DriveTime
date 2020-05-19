@@ -59,7 +59,7 @@ mongoose.connect(db,{ useNewUrlParser: true})
 // ));
 
 app.use(cors({
-    origin: "https://www.geethupadachery.com",
+    origin: /geethupadachery\.com$/,
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true
 }));
@@ -68,7 +68,7 @@ app.options('*', cors())
 
 
 app.all('', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://www.geethupadachery.com");
+    res.header("Access-Control-Allow-Origin", /geethupadachery\.com$/);
     res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
     res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     //Auth Each API Request created by user.

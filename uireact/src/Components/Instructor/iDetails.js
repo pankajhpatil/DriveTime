@@ -73,6 +73,12 @@ var todate = moment();
     }
         //console.log('From: ', dateStrings[0], ', to: ', dateStrings[1]);
       }    
+
+      function disabledDate(current) {
+        // Can not select days before today 
+        return current && current < moment().startOf('day');
+      }
+      
 class IDetails extends Component{
     async componentDidMount() {
 
@@ -129,6 +135,7 @@ class IDetails extends Component{
                         'This Month': [moment().startOf('month'), moment().endOf('month')],
                     }}
                     onChange={onChange}
+                    disabledDate={disabledDate}
                     />                        
                     </Col>
                     </Form.Group>

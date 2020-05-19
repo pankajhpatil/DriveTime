@@ -2,9 +2,15 @@ import React, { Component } from 'react';
 import {
     Form, Button, Input, DatePicker, Radio, Rate, Checkbox,Alert
 } from 'antd';
+import moment from 'moment';
 
 import { connect } from "react-redux";
 const { RangePicker } = DatePicker;
+
+function disabledDate(current) {
+  // Can not select days before today 
+  return current && current < moment().startOf('day');
+}
 
 class PlanComponent extends Component{
 
@@ -78,7 +84,7 @@ class PlanComponent extends Component{
                   </Radio.Group>
                 )}
               </Form.Item>
-              <Form.Item label="Your available dates">{getFieldDecorator('availDates', rangeConfig)(<RangePicker />)}</Form.Item>
+              <Form.Item label="Your available dates">{getFieldDecorator('availDates', rangeConfig)(<RangePicker disabledDate={disabledDate}/>)}</Form.Item>
               <Form.Item label="Select your preferred slots">{getFieldDecorator('slots', rangeConfig)(<Checkbox.Group options={options} />)}</Form.Item>
               <Form.Item label="Enter city you prefer" >
                 {getFieldDecorator('city', {

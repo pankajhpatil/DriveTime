@@ -205,6 +205,8 @@ class EnrollComponent extends Component{
                     placeholder="Select your gender">
                     <Option value="male">Male</Option>
                     <Option value="female">Female</Option>
+                    <Option value="others">Others</Option>
+                    <Option value="dtsi">Decline to self identify</Option>
                     </Select>,
                 )}
             </Form.Item>
