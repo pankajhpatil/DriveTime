@@ -13,8 +13,8 @@ provider:
 #  stage: dev
  region: us-east-2
  credentials:
-      accessKeyId: "AKIAQGVDPC2A4RZXQUMW"
-      secretAccessKey: "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"
+      accessKeyId: ""
+      secretAccessKey: ""
 
 functions:
  api:
