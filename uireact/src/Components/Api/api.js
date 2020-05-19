@@ -149,7 +149,8 @@ async function handleError(error) {
 
 // manish
 function checkProfile(data) {
-    let url = api + '/home/enroll';
+    // let url = api + '/home/enroll';
+    let url = api + '/home/checkprofile';
     return axios.get(url, data);
 }
 

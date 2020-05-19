@@ -313,7 +313,7 @@ app.post('/login/octa', async function (req, res) {
 
 //Manish
 //check profile is complete?
-app.get('/home/enroll', function (req, res) {
+app.get('/home/checkprofile', function (req, res) {
     
     var name=req.session.username;
 
