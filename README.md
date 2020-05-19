@@ -31,6 +31,10 @@ Instructors can fix the days they are available and have the option to choose th
 Instructors can see all the bookings from the students. They can see the students name, their address and phone number. Based on the student’s performance, the instructor can rate the student on different driving skills. 
 ```
 
+## Architecture Diagram
+
+<img src="https://github.com/pankajhpatil/DriveTime/blob/master/Architecture%20diagram.jpeg" alt="Architecture Diagram" title="Architecture Diagram" align="center" />
+
 ## Technologies used
 
 * We have developed our backend using NodeJS and ExpressJS. Using the Express-session, we are performing session management. Using serverless framework the backend is deployed in AWS Lambda.
