@@ -81,7 +81,7 @@ class EnrollComponent extends Component{
          
     }
 
-    handleSubmit = e => {
+    handleSubmit = async(e) => {
         e.preventDefault();
 
         this.props.form.validateFields(async(err, values) => {
@@ -102,8 +102,9 @@ class EnrollComponent extends Component{
             data.dualcontrol=values.dualcontrol;
             data.ilicence=values.ilicence;
             try {
-                await RESTService.enroll(data);
-
+                let res = await RESTService.enroll(data);
+                console.log("Enroll call done Successfully");
+                console.log(res);
                 message.success('Saved Successfully');
 
                 history.push('/home');

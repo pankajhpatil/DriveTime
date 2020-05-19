@@ -48,15 +48,32 @@ mongoose.connect(db,{ useNewUrlParser: true})
 .then(()=>console.log('MongoDb connected!!'))
 .catch(err=>console.log(err));
 
-app.use(cors(
-    {
-        // origin: ['http://localhost:3000','https://www.geethupadachery.com/'],
-        origin : /geethupadachery\.com$/,
-        methods : ['GET', 'PUT', 'POST','DELETE','HEAD','OPTIONS'],
-        allowedHeaders : ['Content-Type', 'Authorization'],
-        credentials: true
-    }
-));
+// app.use(cors(
+//     {
+//         // origin: ['http://localhost:3000','https://www.geethupadachery.com/'],
+//         origin : /geethupadachery\.com$/,
+//         methods : ['GET', 'PUT', 'POST','DELETE','HEAD','OPTIONS'],
+//         allowedHeaders : ['Content-Type', 'Authorization'],
+//         credentials: true
+//     }
+// ));
+
+app.use(cors({
+    origin: "https://www.geethupadachery.com",
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true
+}));
+
+app.options('*', cors())
+
+
+app.all('', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "https://www.geethupadachery.com");
+    res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Authorization");
+    //Auth Each API Request created by user.
+    next();
+});
 
 app.use(session({
     secret: 'my_secret_key_dropBox',

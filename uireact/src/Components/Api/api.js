@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { message } from "antd/lib/index";
 
-const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';         
+// const api = process.env.SERVER_URL || 'https://cw0orhayc7.execute-api.us-east-2.amazonaws.com/dev';         
 // const api = process.env.SERVER_URL || 'http://localhost:3001'; 
-// const api = process.env.SERVER_URL || 'http://geethupadachery.com:3001';
+const api = process.env.SERVER_URL || 'https://jdmadhani.com/';
 
 axios.defaults.withCredentials = true;
 
